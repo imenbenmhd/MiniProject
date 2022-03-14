@@ -1,7 +1,3 @@
-"""A simple pre-processing that applies Z-normalization to the input
-features"""
-
-
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.preprocessing import StandardScaler
 from sklearn.preprocessing import PolynomialFeatures
