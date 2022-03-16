@@ -11,6 +11,14 @@ data_base = ['winequality-white.csv',
         'winequality-red.csv',
         'housing.data' ]
 
+wine_variables = [ 'fixed acidity' , 'volatile acidity',
+    'citric acid' , 'residual sugar', 'chlorides' , 'free sulfur dioxide',
+    'total sulfur dioxide','density' , 'pH' , 'sulphates' , 'alcohol' ]
+
+housing_variables=['CRIM', 'ZN' , 'INDUS', 'CHAS' ,'NOX',
+ 'RM', 'AGE', 'DIS', 'RAD', 'TAX', 'PTRATIO', 'B', 'LSTAT']        
+
+
 
 def load(data):
 
