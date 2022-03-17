@@ -20,6 +20,8 @@ housing_variables=['CRIM', 'ZN' , 'INDUS', 'CHAS' ,'NOX',
 
 
 
+
+
 def load(data):
 
   if data==0:
