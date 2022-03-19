@@ -1,31 +1,37 @@
-from locale import normalize
+import numpy as np
 import database
 import preprocessor
 from sklearn.linear_model import LinearRegression
-from sklearn.tree import DecisionTreeClassifier
+from sklearn.tree import DecisionTreeRegressor
+
+normalization=['PolynomialFeaturesScaler', 'MinMaxScaler','StandardScaler','normalize']
 
 
-
-seed=[2,3,4]
-
-
-def linear_regression(data,seed):
-    data_f=database.load(data)
-
-    y_predicted=[]
-    x_train ,x_test,y_train , y_test=database.split_data(data_f,i)
-    regressor = LinearRegression()
-    
-        regressor.fit(x_train, y_train)
-        y_predict=regressor.predict(x_test)
-        y_predicted.append(y_predict)
-
-    return y_predicted; # return for the 4 normalization
-
-def regressionTree(data,seed):
-    data_f=database.load(data)
+def regression(data,norm,model):
     y_predicted=[]
     y_tested=[]
 
+    for i in database.seeds:
+        training_set=database.extract(data,i,"train")
+        testing_set=database.extract(data,i,"test")
+        normalization_to_call=getattr(database , normalization[norm])
 
-    return y_predicted;
+        
+        normalized_train_set=normalization_to_call(training_set)
+        y_train=normalized_train_set[:,-1]
+        normalized_test_set=normalization_to_call(testing_set)
+        y_test=normalized_test_set[:,-1]
+        if model=="LinearRegression":
+            regressor = LinearRegression()
+        if model=="Regressiontree":
+            regressor=DecisionTreeRegressor()
+
+        regressor.fit(normalized_train_set,y_train)
+        y_predict=regressor.predict(normalized_test_set)
+        y_tested.append(y_test)
+        y_predicted.append(y_predict)
+
+    return y_tested,y_predicted; # return for the 3 seeds
+
+
+
