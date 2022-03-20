@@ -1,7 +1,3 @@
-"""A simple pre-processing that applies Z-normalization to the input
-features"""
-
-
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.preprocessing import StandardScaler
 from sklearn.preprocessing import PolynomialFeatures
@@ -10,7 +6,7 @@ import numpy as np
 
 #Polynomial scaling
 
-def PolynomialFeaturesScaler(X, degree = X.shape[0]-1, interaction = False):
+def PolynomialFeaturesScaler(X, scale, degree = X.shape[0]-1, interaction = False):
     """Generate a new feature matrix consisting of all polynomial combinations of the features 
     with degree less than or equal to the specified degree.
     Parameters
@@ -19,6 +15,7 @@ def PolynomialFeaturesScaler(X, degree = X.shape[0]-1, interaction = False):
         A 3D numpy ndarray in which the rows represent examples while the
         columns, features of the data set you want to normalize. Every depth
         corresponds to data for a particular class.
+    scale : string; determines whether MinMax or Z-normalization should be applied.
     degree : int or tuple (min_degree, max_degree), default = number of features in X
              If a single int is given, it specifies the maximal degree of the polynomial features. 
              If a tuple (min_degree, max_degree) is passed, then min_degree is the minimum and 
@@ -32,8 +29,17 @@ def PolynomialFeaturesScaler(X, degree = X.shape[0]-1, interaction = False):
         A 3D numpy ndarray with the same dimensions as the input array ``X``,
         but with its values normalized according to class sklearn.preprocessing.StandardScaler.
     """   
-    poly = PolynomialFeatures(degree, interaction_only = interaction)
-    return poly.fit_transform(X)
+    X_transform = X[:, :-1] #select attributes columns, excludes the last one (target variable)
+    y = X[:, -1] # target variable
+    X_poly = PolynomialFeatures(degree, interaction_only = interaction).fit_transform(X_transform)
+    X_poly = np.append(X_poly, y, axis = 1)
+    
+    if scale == 'minmax':
+        return MinMaxScaler(X_poly, feature_range = (0, 1))
+    elif scale == 'z-norm':
+        return StandardScaler(X_poly)
+    else:
+        print("The scale can be minmax or z-norm")
 
 
 #MinMax Scaling
@@ -81,8 +87,8 @@ def StandardScaler(X):
         A 3D numpy ndarray with the same dimensions as the input array ``X``,
         but with its values normalized according to class sklearn.preprocessing.StandardScaler.
     """    
-    scaler = StandardScaler().fit(X_train)
-    X_std_scaler = scaler.transform(X_train)
+    scaler = StandardScaler().fit(X)
+    X_std_scaler = scaler.transform(X)
     
     return X_std_scaler
 
