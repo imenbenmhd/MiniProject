@@ -83,8 +83,7 @@ def split_data(i):
 
 
 def extract(i, protocol, subset):
-    """Split the data into 3 different test and train sets with the use of train_test_split
-    function from sklearn
+    """extract the protocol of interest
     ==========
     i : int
         The index of data_base list to know which data to load.

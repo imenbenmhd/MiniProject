@@ -6,45 +6,72 @@ from sklearn.tree import DecisionTreeRegressor
 
 normalization=['MinMaxScaler_','StandardScaler','PolynomialFeaturesScaler']
 
+def normalize(X,norm):
+    """ chose a preproccessing method to apply to the data
+    ==========
+    X : np.ndarray
+        The data to normalize
+    norm : int
+        The index of normalization list to know which preprocessing method to use.
+
+    Returns
+    =======
+    normalized_set : numpy.ndarray
+        a 3D array same shape as the input but normalized.
+    """
+
+    degree=X.shape[1]-1
+    if norm==2:
+        normalization_to_call=getattr(preprocessor , normalization[2])
+        normalized_set=normalization_to_call(X,"minmax", degree)
+    if norm==3:
+        normalization_to_call=getattr(preprocessor , normalization[2])
+        normalized_set=normalization_to_call(X,"z-norm",degree)
+    else:
+        normalization_to_call=getattr(preprocessor , normalization[norm])
+        normalized_set=normalization_to_call(X)
+    return normalized_set
+
 
 def regression(data,norm,model):
+
+    """Apply the regression model to the data with a specific normalization 
+    method as preprocessing
+    ==========
+    data : int
+        The index of data_base list to know which data to load.
+    norm : int
+        The index of normalization list to know which preprocessing method to use.
+    model : string
+        Which regression model to apply.
+
+    Returns
+    =======
+    y_predict : list of np.array
+        A list of the values of the predicted attribute for every protocol
+    y_predicted : list of np.array
+        A list of the true values of the test set to compare with the prediction
+    """
+
     y_predicted=[]
     y_tested=[]
 
-    for i in database.seeds:
+    for i in range(len(database.seeds)):
         training_set=database.extract(data,i,0)
         testing_set=database.extract(data,i,1)
-        degree=training_set.shape[1]-1
-        if norm==2:
-            print("norma")
-            normalization_to_call=getattr(preprocessor , normalization[norm])
-            print(training_set.shape[1])
-            normalized_train_set=normalization_to_call(training_set,"minmax", degree)
-            normalized_test_set=normalization_to_call(testing_set,"minmax",degree)
-            print("oknor")
-        if norm==3:
-            normalization_to_call=getattr(preprocessor , normalization[norm])
+        normalized_train=normalize(training_set,norm)
+        normalized_test=normalize(testing_set,norm)
 
-            normalized_train_set=normalization_to_call(training_set,"z-norm",degree)
-            normalized_test_set=normalization_to_call(testing_set,"z-norm",degree)
-        else:
-            normalization_to_call=getattr(preprocessor , normalization[norm])
-
-            normalized_train_set=normalization_to_call(training_set)
-            normalized_test_set=normalization_to_call(testing_set)
-
-        y_train=normalized_train_set[:,-1]
-        y_test=normalized_test_set[:,-1]
+        y_train=normalized_train[:,-1]
+        y_test=normalized_test[:,-1]
 
         if model=="LinearRegression":
-            print("model")
             regressor = LinearRegression()
         if model=="Regressiontree":
             regressor=DecisionTreeRegressor()
 
-        regressor.fit(normalized_train_set,y_train)
-        y_predict=regressor.predict(normalized_test_set)
-        print(y_predict)
+        regressor.fit(normalized_train,y_train)
+        y_predict=regressor.predict(normalized_test)
         y_tested.append(y_test)
         y_predicted.append(y_predict)
 
@@ -52,4 +79,4 @@ def regression(data,norm,model):
 
 
 
-ytest, ypredict=regression(0,0,"LinearRegression")
+
