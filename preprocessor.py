@@ -6,7 +6,7 @@ import numpy as np
 
 #Polynomial scaling
 
-def PolynomialFeaturesScaler(X, scale, degree = X.shape[0]-1, interaction = False):
+def PolynomialFeaturesScaler(X, scale, degree, interaction = False):
     """Generate a new feature matrix consisting of all polynomial combinations of the features 
     with degree less than or equal to the specified degree.
     Parameters
@@ -28,7 +28,7 @@ def PolynomialFeaturesScaler(X, scale, degree = X.shape[0]-1, interaction = Fals
     X_std_scaler : numpy.ndarray
         A 3D numpy ndarray with the same dimensions as the input array ``X``,
         but with its values normalized according to class sklearn.preprocessing.StandardScaler.
-    """   
+    """ 
     X_transform = X[:, :-1] #select attributes columns, excludes the last one (target variable)
     y = X[:, -1] # target variable
     X_poly = PolynomialFeatures(degree, interaction_only = interaction).fit_transform(X_transform)
@@ -44,7 +44,7 @@ def PolynomialFeaturesScaler(X, scale, degree = X.shape[0]-1, interaction = Fals
 
 #MinMax Scaling
 
-def MinMaxScaler(X, feature_range = (0, 1)):
+def MinMaxScaler_(X, feature_range = (0, 1)):
     """Transforms features by scaling each feature to a given range.
     Parameters
     ==========
