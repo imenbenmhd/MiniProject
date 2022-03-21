@@ -25,19 +25,18 @@ def PolynomialFeaturesScaler(X, scale, degree, interaction = False):
         Desired range of transformed data.
     Returns
     =======
-    X_std_scaler : numpy.ndarray
-        A 3D numpy ndarray with the same dimensions as the input array ``X``,
-        but with its values normalized according to class sklearn.preprocessing.StandardScaler.
+    X_poly : numpy.ndarray
+             Transformed array.
     """ 
     X_transform = X[:, :-1] #select attributes columns, excludes the last one (target variable)
     y = X[:, -1] # target variable
     X_poly = PolynomialFeatures(degree, interaction_only = interaction).fit_transform(X_transform)
-    X_poly = np.append(X_poly, y, axis = 1)
+    X_poly = np.insert(X_poly, -1, y, axis = 1)
     
     if scale == 'minmax':
-        return MinMaxScaler(X_poly, feature_range = (0, 1))
+        return MinMaxScaler_(X_poly, feature_range = (0, 1))
     elif scale == 'z-norm':
-        return StandardScaler(X_poly)
+        return Standard_Scaler(X_poly)
     else:
         print("The scale can be minmax or z-norm")
 
@@ -61,10 +60,11 @@ def MinMaxScaler_(X, feature_range = (0, 1)):
         but with its values normalized according to class sklearn.preprocessing.MinMaxScaler.
     """
     if feature_range == (0, 1):
-        min_max_scaler = MinMaxScaler(X)
+        min_max_scaler = MinMaxScaler()
         X_minmax = min_max_scaler.fit_transform(X)
         
     else:
+        min, max = feature_range
         X_std = (X - X.min(axis = 0)) / (X.max(axis = 0) - X.min(axis = 0))
         X_minmax = X_std * (max - min) + min
     
@@ -73,7 +73,7 @@ def MinMaxScaler_(X, feature_range = (0, 1)):
 
 #Z-normalization
 
-def StandardScaler(X):
+def Standard_Scaler(X):
     """Standardize features by removing the mean and scaling to unit variance.
     Parameters
     ==========
@@ -87,7 +87,8 @@ def StandardScaler(X):
         A 3D numpy ndarray with the same dimensions as the input array ``X``,
         but with its values normalized according to class sklearn.preprocessing.StandardScaler.
     """    
-    scaler = StandardScaler().fit(X)
+    scaler = StandardScaler()
+    scaler.fit(X)
     X_std_scaler = scaler.transform(X)
     
     return X_std_scaler
