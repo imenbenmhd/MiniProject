@@ -27,24 +27,48 @@ subsets=["train", "test"]
 
 
 
-def load(data):
+def load(i):
+    """Load the desired data from the Data folder
+    ==========
+    i : int
+        The index of data_base list to know which data to load.
 
-  if data==2:
-      return np.loadtxt("Data/housing.data")  
+    Returns
+    =======
+    data_ : numpy.ndarray
+        A 3D numpy ndarray where the columns are the features of the data and the last column is the 
+        value that we would like to predict.
+    """
 
-  else:  
-    with open('Data/'+ data_base[data], 'rt') as f:
-        reader = csv.reader(f,delimiter=';')
-        data_=[]
-        next(reader)
-        for row in reader:
-            data_.append(np.array([float(x) for x in row]))  
+    if i==2:
+        return np.loadtxt("Data/housing.data")  
+    # the files don't have the same extension so we seperate in two cases
+    else:  
+        with open('Data/'+ data_base[i], 'rt') as f:
+            reader= csv.reader(f,delimiter=';')
+            data_=[]
+            next(reader)
+            for row in reader:
+                data_.append(np.array([float(x) for x in row]))  
     return np.array(data_)
 
 
 
-def split_data(data):
-    loaded_data=load(data)
+def split_data(i):
+    """Split the data into 3 different test and train sets with the use of train_test_split
+    function from sklearn
+    ==========
+    i : int
+        The index of data_base list to know which data to load.
+
+    Returns
+    =======
+    data_ : dict(k,dict(subset : np.array))
+        A dictionnary where the keys k represent the protocol used to split the data
+        and subset is either "train" or "test".
+    """
+
+    loaded_data=load(i)
     X=loaded_data[:,:-1]
     Y=loaded_data[:,-1]
     data_= dict([(k,{"train" : [], "test" : [] }) for k in seeds])
@@ -58,10 +82,26 @@ def split_data(data):
 
 
 
-def extract(data, protocol, subset):
-    values= split_data(data)
+def extract(i, protocol, subset):
+    """Split the data into 3 different test and train sets with the use of train_test_split
+    function from sklearn
+    ==========
+    i : int
+        The index of data_base list to know which data to load.
+    protocol : int
+        The index of seeds list to know which protocol to use to split the data.
+    subset : int
+        The index of subsets list to know if we extract train set or test set.
+
+    Returns
+    =======
+    X : np.ndarray
+        A 3D array of the desired dataset, split protocol and subset.
+    """
+    values= split_data(i)
     interest=values[seeds[protocol]]
-    return interest[subsets[subset]]
+    X=interest[subsets[subset]]
+    return X
 
 
 
