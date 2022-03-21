@@ -47,12 +47,13 @@ def split_data(data):
     loaded_data=load(data)
     X=loaded_data[:,:-1]
     Y=loaded_data[:,-1]
-    data_= dict([(k,[]) for k in seeds])
+    data_= dict([(k,{"train" : [], "test" : [] }) for k in seeds])
     for k in seeds:
         x_train,x_test,y_train,y_test= model_selection.train_test_split(X,Y,test_size = 0.5, random_state =k)
         train=np.append(x_train, np.reshape(y_train,(x_train.shape[0],1)), axis=1)
         test=np.append(x_test,np.reshape(y_test,(x_test.shape[0],1)),axis=1)
-        (data_[k].append(train)).append(test)
+        data_[k]["train"]=train
+        data_[k]["test"]=test
     return data_
 
 
@@ -60,8 +61,7 @@ def split_data(data):
 def extract(data, protocol, subset):
     values= split_data(data)
     interest=values[seeds[protocol]]
-    return interest[subsets.index(subset)]
-
+    return interest[subsets[subset]]
 
 
 
