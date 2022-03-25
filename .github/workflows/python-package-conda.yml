@@ -13,23 +13,23 @@ jobs:
         python-version:['3.8', '3.9']
     
     steps:
-    - name: checkout code
-    - uses: actions/checkout@v2
+      - name: checkout code
+        uses: actions/checkout@v2
     
     
-    - name: Set up miniconda
-      uses: conda-incubator/setup-miniconda@v2
-      with:
-        miniconda-version: latest
-        python-version : ${{matrix.python-version}}
-        activate-environment: miniproject
-        environment-file: environment.yml
+      - name: Set up miniconda
+        uses: conda-incubator/setup-miniconda@v2
+        with:
+          miniconda-version: latest
+          python-version : ${{matrix.python-version}}
+          activate-environment: miniproject
+          environment-file: environment.yml
         
         
-    - name: Test with pytest
-      run: |
-        pytest -sv ./test-database.py
-    - name: Build documentation
-      run:
+      - name: Test with pytest
+        run: |
+          pytest -sv ./test-database.py
+      - name: Build documentation
+        run:
         sphinx-build doc sphinx
     
