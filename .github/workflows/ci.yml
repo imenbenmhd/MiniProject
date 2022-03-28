@@ -28,10 +28,10 @@ jobs:
           auto-activate-base: false
         
         
-      - name: Test with pytest
-        shell: bash
-        run: |
-          py.test -sv test-database.py
+    #  - name: Test with pytest
+     #   shell: bash
+       # run: |
+        #  py.test -sv test-database.py
       - name: Build documentation
         shell: bash
         run: |
