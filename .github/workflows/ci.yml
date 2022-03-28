@@ -32,6 +32,9 @@ jobs:
         shell: bash
         run: |
           pip install pytest
+          pip install numpy
+          pip install csv
+          pip install sklearn
           pytest -sv ./test-database.py
     #  - name: Build documentation
      #   shell: bash
