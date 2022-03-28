@@ -34,6 +34,6 @@ jobs:
           pytest -sv ./test-database.py
       - name: Build documentation
         shell: bash -l {0}
-        run:
+        run: |
        	  sphinx-build doc sphinx
     
