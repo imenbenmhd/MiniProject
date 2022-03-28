@@ -3,6 +3,7 @@ channels:
 dependencies:
   - numpy
   - scipy
+  - scikit-learn
   - pytest
   - sphinx
   - pip
