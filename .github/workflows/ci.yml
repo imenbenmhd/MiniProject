@@ -28,12 +28,12 @@ jobs:
           auto-activate-base: false
         
         
-    #  - name: Test with pytest
-     #   shell: bash
-       # run: |
-        #  py.test -sv test-database.py
-      - name: Build documentation
+      - name: Test with pytest
         shell: bash
         run: |
-          sphinx-build doc sphinx
+          py.test -sv test-database.py
+    #  - name: Build documentation
+     #   shell: bash
+     #   run: |
+      #    sphinx-build doc sphinx
     
