@@ -31,7 +31,7 @@ jobs:
       - name: Test with pytest
         shell: bash
         run: |
-          pytest -sv test-database.py
+          py.test -sv test-database.py
       - name: Build documentation
         shell: bash
         run: |
