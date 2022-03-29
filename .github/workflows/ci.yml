@@ -32,7 +32,7 @@ jobs:
         run: |
           pip install pytest
           pip install sklearn
-          pip install sphinx-build
+          pip install sphinx
       - name: Test with pytest
         shell: bash
         run: |
