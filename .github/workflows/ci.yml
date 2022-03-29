@@ -27,13 +27,18 @@ jobs:
           environment-file: environment.yml
           auto-activate-base: false
         
-        
+      - name: install dependencies
+        shell: bash
+        run: |
+          pip install pytest
+          pip install sklearn
+          pip install sphinx-build
       - name: Test with pytest
         shell: bash
         run: |
           pytest -sv ./test-database.py
-    #  - name: Build documentation
-     #   shell: bash
-     #   run: |
-      #    sphinx-build doc sphinx
+      - name: Build documentation
+        shell: bash
+        run: |
+          sphinx-build doc sphinx
     
