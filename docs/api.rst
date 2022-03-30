@@ -8,10 +8,6 @@ Database
    :members:
    
 
-Preprocessing
--------------
-.. automodule:: preprocessor
-   :members:
    
 The ML algorithms
 -----------------
