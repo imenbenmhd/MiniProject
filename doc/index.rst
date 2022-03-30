@@ -12,6 +12,7 @@ Welcome to MiniProject's documentation!
    install
    guide
    api
+   unittesting
 
 
 
