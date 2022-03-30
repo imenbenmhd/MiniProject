@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import numpy as np
 import csv
@@ -68,16 +68,22 @@ def load(i):
 
     if i == 2:
         return np.loadtxt("Data/housing.data")
+
+    
     # the files don't have the same extension so we seperate in two cases
     else:
         with open("Data/" + data_base[i], "rt") as f:
             reader = csv.reader(f, delimiter=";")
             data_ = []
             next(reader)
+            i=0
             for row in reader:
+                i+=1
                 data_.append(np.array([float(x) for x in row]))
     X=np.array(data_)
     return X
+
+load(0)
 
 
 def split_data(i):
@@ -112,7 +118,6 @@ def split_data(i):
         data[k]["train"] = train
         data[k]["test"] = test
     return data
-
 
 def extract(i, protocol, subset):
 
