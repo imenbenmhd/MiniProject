@@ -41,22 +41,42 @@ extensions = [ "sphinx.ext.todo",
 ]
 
 # Add any paths that contain templates here, relative to this directory.
-templates_path = ['_templates']
+nitpicky= False
+nitpick_ignore=[]
+if os.path.exists("nitpick-exceptions.txt"):
+    for line in open("nitpick-exceptions.txt"):
+        if line.strip() == "" or line.startswith("#"):
+            continue
+        dtype, target = line.split(None, 1)
+        target = target.strip()
+        try:  # python 2.x
+            target = unicode(target)
+        except NameError:
+            pass
+        nitpick_ignore.append((dtype, target))
 
-# List of patterns, relative to source directory, that match files and
-# directories to ignore when looking for source files.
-# This pattern also affects html_static_path and html_extra_path.
-exclude_patterns = []
+# Always includes todos
+todo_include_todos = True
 
+# Generates auto-summary automatically
+autosummary_generate = True
 
-# -- Options for HTML output -------------------------------------------------
+# Create numbers on figures with captions
+numfig = True
 
-# The theme to use for HTML and HTML Help pages.  See the documentation for
-# a list of builtin themes.
-#
-html_theme = 'alabaster'
+# If we are on OSX, the 'dvipng' path maybe different
+dvipng_osx = "/opt/local/libexec/texlive/binaries/dvipng"
+if os.path.exists(dvipng_osx):
+    pngmath_dvipng = dvipng_osx
 
-# Add any paths that contain custom static files (such as style sheets) here,
-# relative to this directory. They are copied after the builtin static files,
-# so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = ['_static']
+# Add any paths that contain templates here, relative to this directory.
+templates_path = ["_templates"]
+
+# The suffix of source filenames.
+source_suffix = ".rst"
+
+# The encoding of source files.
+# source_encoding = 'utf-8-sig'
+
+# The master toctree document.
+master_doc = "index"
