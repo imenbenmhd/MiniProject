@@ -43,7 +43,7 @@ def test_regression_1():
 
     
 
-
+test_regression_1()
 
 
 
