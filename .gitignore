@@ -1,3 +1,4 @@
 *~
-sphinx
-__pycache__
+sphinx/
+__pycache__/
+.coverage
