@@ -3,6 +3,7 @@ name: ci
 on:
   push:
   pull_request:
+  workflow_dispatch:
 
 jobs:
   test:
@@ -10,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version:['3.8', '3.9']
+        python-version: ['3.8', '3.9']
     
     steps:
       - name: checkout code
@@ -24,12 +25,20 @@ jobs:
           python-version : ${{matrix.python-version}}
           activate-environment: miniproject
           environment-file: environment.yml
+          auto-activate-base: false
         
-        
+      - name: install dependencies
+        shell: bash
+        run: |
+          pip install pytest
+          pip install sklearn
+          pip install sphinx
       - name: Test with pytest
+        shell: bash
         run: |
           pytest -sv ./test-database.py
       - name: Build documentation
-        run:
-        sphinx-build doc sphinx
+        shell: bash
+        run: |
+          sphinx-build doc sphinx
     
