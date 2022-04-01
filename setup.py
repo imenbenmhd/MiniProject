@@ -11,7 +11,7 @@ def load_requirements(f):
 
 
 setup(
-    name="Test-cc2",
+    name="cc2",
     version="1.0.0",
     description="Example of classification using regression",
     url="https://github.com/imenbenmhd/MiniProject",
@@ -22,9 +22,9 @@ setup(
     #long_description_content_type="text/x-rst",
     packages=find_packages(),
     include_package_data=True,
-    package_data={'': ['Data/*.csv']},
+    package_data={'': ['Data/*.csv']}
     install_requires=load_requirements("./requirements.txt"),
-    entry_points={"console_scripts": ["Test-cc2-analysis = Test-cc2.analysis:main"]},
+    entry_points={"console_scripts": ["cc2-analysis = cc2.analysis:main"]},
     classifiers=[
         "Development Status :: 4 - Beta",
         "Intended Audience :: Developers",
