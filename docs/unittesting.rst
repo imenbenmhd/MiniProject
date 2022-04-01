@@ -1,5 +1,4 @@
-============
-unittesting
+Unit tests
 ============
 
 Unit tests can be excuted by the use of the python library pytest. The unit tests of each modules are seperated in
