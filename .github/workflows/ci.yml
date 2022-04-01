@@ -30,7 +30,6 @@ jobs:
       - name: install dependencies
         shell: bash
         run: |
-          pip install .
           pip install -r requirements-ci.txt 
           
       - name: Test with pytest
