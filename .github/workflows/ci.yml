@@ -39,7 +39,7 @@ jobs:
         shell: bash
         run: |
           sphinx-build -b doctest docs sphinx
-          pytest --cov=. test.py
+          pytest -sv --cov=Test-cc3 Test-cc3
       - name: Build documentation
         shell: bash
         run: |

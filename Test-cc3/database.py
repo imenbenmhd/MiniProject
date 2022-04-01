@@ -3,6 +3,7 @@
 import numpy as np
 import csv
 from sklearn import model_selection
+import pkg_resources
 
 seeds = [2, 3, 4]
 
@@ -65,14 +66,14 @@ def load(i):
             value that we would like to predict.
 
     """
-
+    Data_folder=pkg_resources.resource_filename(__name__,"Data/")
     if i == 2:
-        return np.loadtxt("Data/housing.data")
+        return np.loadtxt(Data_folder+"housing.data")
 
     
     # the files don't have the same extension so we seperate in two cases
     else:
-        with open("Data/" + data_base[i], "rt") as f:
+        with open(Data_folder + data_base[i], "rt") as f:
             reader = csv.reader(f, delimiter=";")
             data_ = []
             next(reader)
