@@ -42,7 +42,7 @@ jobs:
       - name: Build documentation
         shell: bash
         run: |
-          sphinx-build doc sphinx
+          sphinx-build docs sphinx
           touch sphinx/.nojekyll
           coverage html -d sphinx/coverage
 
