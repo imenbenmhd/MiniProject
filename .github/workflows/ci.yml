@@ -36,9 +36,30 @@ jobs:
       - name: Test with pytest
         shell: bash
         run: |
-          pytest -sv ./test-database.py
+          sphinx-build -b doctest doc sphinx
+          pytest -sv --cov=. test.py
       - name: Build documentation
         shell: bash
         run: |
           sphinx-build doc sphinx
+          touch sphinx/.nojekyll
+          coverage html -d sphinx/coverage
+
+      - name: upload coverage
+        shell: bash -l {0}
+        env: 
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          COVERALLS_FLAG_NAME: ${{ matrix.python-version }}
+          COVERALLS_PARALLEL: true
+        run: |
+          conda info -a
+          coveralls --service=github
+      - name: Deploy documentation to GitHub Pages
+        if: ${{ matrix.python-version == '3.8' }}  #deploys only one variant
+        uses: crazy-max/ghaction-github-pages@v2
+        with:
+          target_branch: gh-page
+          build_dir: sphinx
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     
