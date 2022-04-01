@@ -24,7 +24,7 @@ setup(
     include_package_data=True,
     package_data={'': ['Data/*.csv']},
     install_requires=load_requirements("./requirements.txt"),
-    entry_points={"console_scripts": ["rr-analysis = rr.analysis:main"]},
+    entry_points={"console_scripts": ["Test-cc2-analysis = Test-cc2.analysis:main"]},
     classifiers=[
         "Development Status :: 4 - Beta",
         "Intended Audience :: Developers",
