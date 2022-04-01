@@ -33,7 +33,8 @@ def normalize(X, norm):
     if norm == 3:
         normalization_to_call = getattr(preprocessor, normalization[2])
         normalized_set = normalization_to_call(X, "z-norm", degree)
-    else:
+    if norm == 0 or norm ==1:
+        print("inside")
         normalization_to_call = getattr(preprocessor, normalization[norm])
         normalized_set = normalization_to_call(X)
     return normalized_set

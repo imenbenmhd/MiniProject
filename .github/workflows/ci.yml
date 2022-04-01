@@ -64,4 +64,20 @@ jobs:
           build_dir: sphinx
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+
+      - name: Build PyPI (source) package
+        # builds only from one variant
+        if: ${{ matrix.python-version == '3.8' }}
+        shell: bash -l {0}
+        run: |
+          python3 setup.py sdist
+      - name: Deploy package to TestPyPI
+        # deploys only one variant, and if it is tagged
+        if: ${{ matrix.python-version == '3.8'}}
+        uses: pypa/gh-action-pypi-publish@master
+        with:
+          password: ${{ secrets.TEST_PYPI_API_TOKEN }}
+          repository_url: https://test.pypi.org/legacy/
+
     
