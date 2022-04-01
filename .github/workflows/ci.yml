@@ -30,11 +30,9 @@ jobs:
       - name: install dependencies
         shell: bash
         run: |
-          pip install pytest
-          pip install sklearn
-          pip install sphinx
-          pip install pytest-cov
-          pip install coveralls
+          pip install .
+          pip install -r requirements-ci.txt 
+          
       - name: Test with pytest
         shell: bash
         run: |
