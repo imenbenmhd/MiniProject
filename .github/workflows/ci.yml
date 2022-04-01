@@ -34,6 +34,7 @@ jobs:
           pip install sklearn
           pip install sphinx
           pip install pytest-cov
+          pip install coveralls
       - name: Test with pytest
         shell: bash
         run: |
