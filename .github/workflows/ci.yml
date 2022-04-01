@@ -63,5 +63,7 @@ jobs:
         with:
           target_branch: gh-page
           build_dir: sphinx
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         
     
