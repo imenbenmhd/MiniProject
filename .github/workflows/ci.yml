@@ -33,11 +33,12 @@ jobs:
           pip install pytest
           pip install sklearn
           pip install sphinx
+          pip install pytest-cov
       - name: Test with pytest
         shell: bash
         run: |
           sphinx-build -b doctest docs sphinx
-          pytest -sv --cov=. test.py
+          pytest --cov=. test.py
       - name: Build documentation
         shell: bash
         run: |
