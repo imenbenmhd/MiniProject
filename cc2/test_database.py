@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
-import database 
-import algorithm
+from . import database 
 import pytest
 def test_load_1():
     i_1=0

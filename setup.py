@@ -22,7 +22,6 @@ setup(
     #long_description_content_type="text/x-rst",
     packages=find_packages(),
     include_package_data=True,
-    package_data={'': ['Data/*.csv']}
     install_requires=load_requirements("./requirements.txt"),
     entry_points={"console_scripts": ["cc2-analysis = cc2.analysis:main"]},
     classifiers=[
