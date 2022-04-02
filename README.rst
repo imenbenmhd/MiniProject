@@ -35,8 +35,10 @@ Description
 -----------
 
 For both datasets, two Machine Learning approaches are used for the prediction:
-* Linear Regression
-* Regression Trees
+
+- Linear Regression
+
+- Regression Trees
 
 -----------
 Prerequisites
