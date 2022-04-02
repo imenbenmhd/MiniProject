@@ -1,9 +1,5 @@
 """User script to conduct the first hypothesis in the course"""
 
-import logging
-import itertools
-import string
-
 import numpy as np
 
 np.seterr(divide="ignore")
@@ -15,21 +11,20 @@ import pandas as pd
 from tabulate import tabulate
 import matplotlib.pyplot as plt
 
-variables = [database.wine_variables, database.housing_variables]
 models = ["LinearRegression", "Regressiontree"]
 
 def test_mae(data, norm):
     """Runs one single test, returns the MAE on the test set for chosen data and norm"""
 
     mae_tables = [pd.DataFrame(np.zeros((3, 2))), pd.DataFrame(np.zeros((3, 2)))]
-    mae_tables[0].columns = ["protocol", "MAE"]
-    mae_tables[1].columns = ["protocol", "MAE"]
+    mae_tables[0].columns = ["random state", "MAE"]
+    mae_tables[1].columns = ["random state", "MAE"]
 
 
     for i, model in enumerate(models):
         y_train, y_predict = algorithm.regression(data, norm, models[i])
         for j, seed in enumerate(database.seeds):
-            mae_tables[i].iloc[j, 0] = j+1
+            mae_tables[i].iloc[j, 0] = j
             mae_tables[i].iloc[j, 1] = analysis.mean_abs_err(y_train[j], y_predict[j])
 
     return mae_tables
@@ -37,18 +32,14 @@ def test_mae(data, norm):
 def test_plot(mae_tables):
     for i in range(len(mae_tables)):
         plt.plot(mae_tables[i].iloc[:, 0], mae_tables[i].iloc[:, 1], '-o', label= models[i])
-    plt.xticks(range(0, 5, 1))
+    plt.xticks([0, 1, 2], ['proto1', 'proto2', 'proto3'], rotation = 30)
+    plt.yticks(np.arange(0, 0.07, step=0.01))
     plt.xlabel('Protocol')
     plt.ylabel('MAE')
     plt.title("Comparison of different models for different seeds")
     plt.legend()
     plt.show()
 
-def test_allnorms(data):
-    tables = []
-    for i in range(4):
-        tables.append(test_mae(data, i))
-    return tables
 
 def test_explore():
 
@@ -63,20 +54,23 @@ def test_explore():
             y_rt[i][j] = test_mae(i, j)[1].iloc[:, 1].mean()
 
 
-    fig=plt.figure(figsize=(18, 6), dpi= 80, facecolor='w', edgecolor='k')
-    fig, (ax1, ax2, ax3) = plt.subplots(3, 1, sharex = True, sharey = True)
+    fig, (ax1, ax2, ax3) = plt.subplots(3, 1, sharex = True)
     fig.suptitle('Explorative view for each dataset')
     ax1.plot(norms, y_lr[0], label= models[0])
     ax1.plot(norms, y_rt[0], label= models[1])
     ax1.title.set_text('First database: ' + database.data_base[0])
+    ax1.set_ylabel('MAE')
     ax2.plot(norms, y_lr[1], label= models[0])
     ax2.plot(norms, y_rt[1], label= models[1])
     ax2.title.set_text('Second database: ' + database.data_base[1])
+    ax2.set_ylabel('MAE')
     ax3.plot(norms, y_lr[2], label= models[0])
     ax3.plot(norms, y_rt[2], label= models[1])
     ax3.title.set_text('Third database: ' + database.data_base[2])
-    plt.ylabel('MAE')
-    plt.legend()
+    ax3.set_ylabel('MAE')
+    ax1.legend()
+    ax2.legend()
+    ax3.legend()
     plt.subplots_adjust(left=0.1,
                     bottom=0.1, 
                     right=0.9, 
@@ -94,9 +88,9 @@ def main():
 
     example_doc = """\
 examples:
-    1. Returns all tables and plots for all datasets in the original report:
+    1. Returns plots for all datasets in the original report:
        $ python result.py
-    2. Only prints results and plots for dataset 2:
+    2. Only prints results and plots for dataset 2 (for every normalization method):
        $ python result.py -d=2
     3. Only prints results and plots for dataset 2 and normalization 1:
        $ python result.py --dataset=2 --norm=1
@@ -105,7 +99,7 @@ examples:
 
     parser = argparse.ArgumentParser(
         usage="python %(prog)s [options]",
-        description="Performs Linear Regression and Regression trees algorithms",
+        description="Performs Linear Regression and Regression Trees algorithms",
         epilog=example_doc,
         formatter_class=argparse.RawDescriptionHelpFormatter,
     )
@@ -115,7 +109,7 @@ examples:
         "--norm",
         choices=[0, 1, 2, 3],
         type=int,
-        help="Chooses which normalization to apply.  If you choose '0', then "
+        help="Chooses which normalization to apply (optional). If you choose '0', then "
              "you would apply the minmax scaler. If you choose '1', "
              "then you would apply the z-normalization. If you choose '2', "
              "you would apply the polynomial features scaler first, and then "
@@ -134,39 +128,29 @@ examples:
              " 2: housing)",
         )
 
-    parser.add_argument(
-        "-e",
-        "--explore",
-        choices=[False, True],
-        type=bool,
-        default=False,
-        help="Determines whether to compare all 4 normalization methods on one graph. "
-        "If you choose True, it will output the explorative comparison, otherwise not."
-        "Default is False. ",
-        )
-
     args = parser.parse_args()
 
-    if (args.dataset is not None):
-        arg_dataset = args.dataset
+    if args.dataset is not None:
+        if args.norm is not None:
+            mae_tables = test_mae(args.dataset, args.norm)
+            for i, model in enumerate(models):
+                print("MODEL : "+model)
+                print(tabulate(mae_tables[i], headers='keys', tablefmt='psql'))
+            test_plot(mae_tables)
+        else:
+            print("Dataset: ", database.data_base[args.dataset])
+            for j in range(4):
+                print("Normaliation method: ", j)
+                mae_tables = test_mae(args.dataset, j)
+                for i, model in enumerate(models):
+                    print("MODEL: ", model)
+                    print(tabulate(mae_tables[i], headers='keys', tablefmt='psql'))
+                test_plot(mae_tables)
     else:
-        print("Dataset argument not specified, running with default = 0")
-        arg_dataset = 0
-
-    if args.norm is not None:
-        arg_norm = args.norm
-    else:
-        print("Normalization argument not specified, running with default = 0")
-        arg_norm = 0
-
-    if args.explore is not False:
-        test_explore()
-    else:
-        mae_tables = test_mae(arg_dataset, arg_norm)
-        for i, model in enumerate(models):
-            print("MODEL : "+model)
-            print(tabulate(mae_tables[i], headers='keys', tablefmt='psql'))
-        test_plot(mae_tables)
+        if args.norm is not None:
+            print(example_doc)
+        else:
+            test_explore()
 
 if __name__ == "__main__":
     main()
