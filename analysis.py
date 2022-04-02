@@ -1,6 +1,4 @@
 from sklearn.metrics import mean_absolute_error
-import database
-import algorithm
 import numpy as np
 
 def mean_abs_err(prediction, true_labels):
