@@ -6,13 +6,13 @@ import numpy as np
 
 #Polynomial scaling
 
-def PolynomialFeaturesScaler(X, scale, degree = X.shape[0]-1, interaction = False):
+def PolynomialFeaturesScaler(X, scale, degree, interaction = False):
     """Generate a new feature matrix consisting of all polynomial combinations of the features 
     with degree less than or equal to the specified degree.
     Parameters
     ==========
     X : numpy.ndarray
-        A 3D numpy ndarray in which the rows represent examples while the
+        A 2D numpy ndarray in which the rows represent examples while the
         columns, features of the data set you want to normalize. Every depth
         corresponds to data for a particular class.
     scale : string; determines whether MinMax or Z-normalization should be applied.
@@ -25,14 +25,13 @@ def PolynomialFeaturesScaler(X, scale, degree = X.shape[0]-1, interaction = Fals
         Desired range of transformed data.
     Returns
     =======
-    X_std_scaler : numpy.ndarray
-        A 3D numpy ndarray with the same dimensions as the input array ``X``,
-        but with its values normalized according to class sklearn.preprocessing.StandardScaler.
+    X_poly : numpy.ndarray
+             Transformed array.
     """   
     X_transform = X[:, :-1] #select attributes columns, excludes the last one (target variable)
     y = X[:, -1] # target variable
     X_poly = PolynomialFeatures(degree, interaction_only = interaction).fit_transform(X_transform)
-    X_poly = np.append(X_poly, y, axis = 1)
+    X_poly = np.insert(X_poly, -1, y, axis=1)
     
     if scale == 'minmax':
         return MinMaxScaler(X_poly, feature_range = (0, 1))
@@ -44,12 +43,12 @@ def PolynomialFeaturesScaler(X, scale, degree = X.shape[0]-1, interaction = Fals
 
 #MinMax Scaling
 
-def MinMaxScaler(X, feature_range = (0, 1)):
+def MinMaxScaler_(X, feature_range = (0, 1)):
     """Transforms features by scaling each feature to a given range.
     Parameters
     ==========
     X : numpy.ndarray
-        A 3D numpy ndarray in which the rows represent examples while the
+        A 2D numpy ndarray in which the rows represent examples while the
         columns, features of the data set you want to normalize. Every depth
         corresponds to data for a particular class.
     feature_range : tuple (min, max), default=(0, 1)
@@ -57,7 +56,7 @@ def MinMaxScaler(X, feature_range = (0, 1)):
     Returns
     =======
     X_minmax : numpy.ndarray
-        A 3D numpy ndarray with the same dimensions as the input array ``X``,
+        A 2D numpy ndarray with the same dimensions as the input array ``X``,
         but with its values normalized according to class sklearn.preprocessing.MinMaxScaler.
     """
     if feature_range == (0, 1):
@@ -65,6 +64,7 @@ def MinMaxScaler(X, feature_range = (0, 1)):
         X_minmax = min_max_scaler.fit_transform(X)
         
     else:
+        min, max = feature_range
         X_std = (X - X.min(axis = 0)) / (X.max(axis = 0) - X.min(axis = 0))
         X_minmax = X_std * (max - min) + min
     
@@ -73,18 +73,18 @@ def MinMaxScaler(X, feature_range = (0, 1)):
 
 #Z-normalization
 
-def StandardScaler(X):
+def Standard_Scaler(X):
     """Standardize features by removing the mean and scaling to unit variance.
     Parameters
     ==========
     X : numpy.ndarray
-        A 3D numpy ndarray in which the rows represent examples while the
+        A 2D numpy ndarray in which the rows represent examples while the
         columns, features of the data set you want to normalize. Every depth
         corresponds to data for a particular class.
     Returns
     =======
     X_std_scaler : numpy.ndarray
-        A 3D numpy ndarray with the same dimensions as the input array ``X``,
+        A 2D numpy ndarray with the same dimensions as the input array ``X``,
         but with its values normalized according to class sklearn.preprocessing.StandardScaler.
     """    
     scaler = StandardScaler().fit(X)
