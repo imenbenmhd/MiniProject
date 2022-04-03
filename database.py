@@ -4,7 +4,7 @@ import numpy as np
 import csv
 from sklearn import model_selection
 
-seeds = [2, 3, 4]
+seeds = [2, 42, 256]
 
 PROTOCOLS = {
     "proto1": {"train": seeds[0], "test": seeds[0]},

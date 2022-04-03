@@ -13,7 +13,7 @@ def PolynomialFeaturesScaler(X, scale, degree, interaction=False):
     Parameters
     ==========
     X : numpy.ndarray
-        A 3D numpy ndarray in which the rows represent examples while the
+        A 2D numpy ndarray in which the rows represent examples while the
         columns, features of the data set you want to normalize. Every depth
         corresponds to data for a particular class.
     scale : string; determines whether MinMax or Z-normalization should be applied.
@@ -57,7 +57,7 @@ def MinMaxScaler_(X, feature_range=(0, 1)):
     ==========
 
     X : numpy.ndarray
-        A 3D numpy ndarray in which the rows represent examples while the
+        A 2D numpy ndarray in which the rows represent examples while the
         columns, features of the data set you want to normalize. Every depth
         corresponds to data for a particular class.
     feature_range : tuple (min, max), default=(0, 1)
@@ -67,10 +67,9 @@ def MinMaxScaler_(X, feature_range=(0, 1)):
     =======
 
     X_minmax : numpy.ndarray
-        A 3D numpy ndarray with the same dimensions as the input array ``X``,
+        A 2D numpy ndarray with the same dimensions as the input array ``X``,
         but with its values normalized according to class sklearn.preprocessing.MinMaxScaler.
     """
-
     
     if feature_range == (0, 1):
         min_max_scaler = MinMaxScaler()
@@ -86,20 +85,19 @@ def MinMaxScaler_(X, feature_range=(0, 1)):
 
 # Z-normalization
 
-
 def Standard_Scaler(X):
     """Standardize features by removing the mean and scaling to unit variance.
     
     Parameters
     ==========
     X : numpy.ndarray
-        A 3D numpy ndarray in which the rows represent examples while the
+        A 2D numpy ndarray in which the rows represent examples while the
         columns, features of the data set you want to normalize. Every depth
         corresponds to data for a particular class.
     Returns
     =======
     X_std_scaler : numpy.ndarray
-        A 3D numpy ndarray with the same dimensions as the input array ``X``,
+        A 2D numpy ndarray with the same dimensions as the input array ``X``,
         but with its values normalized according to class sklearn.preprocessing.StandardScaler.
     """
     scaler = StandardScaler()

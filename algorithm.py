@@ -4,7 +4,7 @@ import preprocessor
 from sklearn.linear_model import LinearRegression
 from sklearn.tree import DecisionTreeRegressor
 
-normalization = ["MinMaxScaler_", "StandardScaler", "PolynomialFeaturesScaler"]
+normalization = ["MinMaxScaler_", "Standard_Scaler", "PolynomialFeaturesScaler"]
 
 
 def normalize(X, norm):
@@ -22,17 +22,17 @@ def normalize(X, norm):
     Returns :
     
         normalized_set : numpy.ndarray
-            a 3D array same shape as the input but normalized.
+            a 2D array same shape as the input but normalized.
 
     """
 
-    degree = X.shape[1] - 1
+    degree = 2
     if norm == 2:
         normalization_to_call = getattr(preprocessor, normalization[2])
-        normalized_set = normalization_to_call(X, "minmax", degree)
-    if norm == 3:
+        normalized_set = normalization_to_call(X, scale="minmax", degree=degree)
+    elif norm == 3:
         normalization_to_call = getattr(preprocessor, normalization[2])
-        normalized_set = normalization_to_call(X, "z-norm", degree)
+        normalized_set = normalization_to_call(X, scale="z-norm", degree=degree)
     else:
         normalization_to_call = getattr(preprocessor, normalization[norm])
         normalized_set = normalization_to_call(X)
