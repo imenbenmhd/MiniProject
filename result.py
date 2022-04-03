@@ -160,7 +160,7 @@ examples:
         if args.norm is not None:
             mae_tables = test_mae(args.dataset, args.norm)
             for i, model in enumerate(models):
-                print("MODEL : "+model)
+                print("MODEL : " + model)
                 print(tabulate(mae_tables[i], headers='keys', tablefmt='psql'))
             test_plot(mae_tables)
         else:
