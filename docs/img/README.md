@@ -1,0 +1,1 @@
+This is the folder containing the images of the plots used in `guide.rst`.
