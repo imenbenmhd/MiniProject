@@ -166,7 +166,7 @@ examples:
         else:
             print("Dataset: ", database.data_base[args.dataset])
             for j in range(4):
-                print("Normaliation method: ", j)
+                print("Normalization method: ", j)
                 mae_tables = test_mae(args.dataset, j)
                 for i, model in enumerate(models):
                     print("MODEL: ", model)
@@ -179,6 +179,7 @@ examples:
             print(example_doc)
         else:
             test_explore()
+
 
 if __name__ == "__main__":
     main()
