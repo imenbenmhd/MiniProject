@@ -29,7 +29,13 @@ def test_mae(data, norm):
 
     return mae_tables
 
+<<<<<<< HEAD
 def test_plot(mae_tables):
+=======
+
+def test_plot(mae_tables):
+
+>>>>>>> result
     for i in range(len(mae_tables)):
         plt.plot(mae_tables[i].iloc[:, 0], mae_tables[i].iloc[:, 1], '-o', label= models[i])
     plt.xticks([0, 1, 2], ['proto1', 'proto2', 'proto3'], rotation = 30)
@@ -41,6 +47,34 @@ def test_plot(mae_tables):
     plt.show()
 
 
+<<<<<<< HEAD
+=======
+def test_all_norms(data):
+
+    y_lr = np.zeros(4)
+    y_rt = np.zeros(4)
+    norms = ['minmax', 'z-norm', 'poly-minmax', 'poly-znorm']
+
+    for i in range(4):
+        y_lr[i] = test_mae(data, i)[0].iloc[:, 1].mean()
+        y_rt[i] = test_mae(data, i)[1].iloc[:, 1].mean()
+
+    plt.plot(norms, y_lr, label= models[0])
+    plt.plot(norms, y_rt, label= models[1])
+    plt.xlabel('Normalization')
+    plt.ylabel('MAE')
+    plt.title("Comparison of different norms for a chosen dataset")
+    plt.legend()
+    plt.subplots_adjust(left=0.1,
+                    bottom=0.1, 
+                    right=0.9, 
+                    top=0.9, 
+                    wspace=0.8, 
+                    hspace=0.8)
+    plt.show()
+
+
+>>>>>>> result
 def test_explore():
 
     y_lr = np.zeros((3, 4))
@@ -49,7 +83,10 @@ def test_explore():
 
     for i in range(3):
         for j in range(4):
+<<<<<<< HEAD
             #print(test_mae(i, j)[0])#.iloc[:, 1])#.mean())
+=======
+>>>>>>> result
             y_lr[i][j] = test_mae(i, j)[0].iloc[:, 1].mean()
             y_rt[i][j] = test_mae(i, j)[1].iloc[:, 1].mean()
 
@@ -146,6 +183,11 @@ examples:
                     print("MODEL: ", model)
                     print(tabulate(mae_tables[i], headers='keys', tablefmt='psql'))
                 test_plot(mae_tables)
+<<<<<<< HEAD
+=======
+            test_all_norms(args.dataset)
+            
+>>>>>>> result
     else:
         if args.norm is not None:
             print(example_doc)
@@ -153,4 +195,8 @@ examples:
             test_explore()
 
 if __name__ == "__main__":
+<<<<<<< HEAD
     main()
+=======
+    main()
+>>>>>>> result
