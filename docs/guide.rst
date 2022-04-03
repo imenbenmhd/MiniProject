@@ -27,69 +27,65 @@ using command-line options.  You will find more information adding the
 Results for Dataset 1 `winequality-white.csv`
 -----------------------------
 
-Protocol `proto1` is configured to use the first 30 samples for each class in
-the dataset for training, and the last 20 samples for each class for testing
-our solution.  The samples are **not** randomized.  Results are present in
-terms of Mean Absolute Error, in percentage.  The best
-results are **bold faced**.
+The samples are **not** randomized.  Results are present in
+terms of Mean Absolute Error. 
 
-Single Variables
+If you choose a normalization method, it outputs tables for each model, 
+and prints out the plot comparing MAE levels for each random state of each model.
+
+For a chosen normalization 0 (minmax scaling):
 ================
 
 MAE for Linear Regression.
 
-================== ========
-   Protocol           MAE
-================== ========
-        1          8.3962e-16
-        2             36%
-        3              
-================== ========
+================== ============
+   random state        MAE
+================== ============
+        0           8.3962e-16
+        1           2.05534e-16
+        2           1.90706e-15   
+================== ============
 
+MAE for Regression Trees.
 
-Two Variables
+================== ============
+   random state        MAE
+================== ============
+        0           1.14615e-15
+        1           0.0566081
+        2           1.15857e-15   
+================== ============
+
+The plot can be accessed `here <https://github.com/imenbenmhd/MiniProject/tree/main/docs/img/minmax_00.png>`__.
+
+For a chosen normalization 1 (z-norm scaling):
 =============
 
-CER only using any two variables together.
+MAE for Linear Regression.
 
-================== ================== ========
-    Variable 1         Variable 2       CER
-================== ================== ========
-   sepal length       sepal width       16%
- **sepal length**   **petal length**   **1%**
-   sepal length       petal width        3%
-   sepal width        petal length       3%
-   sepal width        petal width        5%
-   petal length       petal width        5%
-================== ================== ========
+================== ============
+   random state        MAE
+================== ============
+        0           6.21605e-16
+        1           5.45699e-16
+        2           9.45084e-16   
+================== ============
 
+MAE for Regression Trees.
 
-Three Variables
-===============
+================== ============
+   random state        MAE
+================== ============
+        0           0.00315739
+        1           0.0603942
+        2           0.0305857   
+================== ============
 
-CER only using any three variables together.
+The plot can be accessed `here <https://github.com/imenbenmhd/MiniProject/tree/main/docs/img/znorm_01.png>`__.
 
-================== ================== ================== ========
-    Variable 1         Variable 2         Variable 3       CER
-================== ================== ================== ========
-   sepal length       sepal width        petal length       3%
-   sepal length       sepal width        petal width        5%
- **sepal length**   **petal length**   **petal width**    **1%**
-   sepal width        petal length       petal width        5%
-================== ================== ================== ========
+If a normalization is not chosen (the parameter is optional), it outputs 4 sets of tables for each 
+normalization method, and 4 plots, together with the plot comparing mean values of MAE for different
+normalization methods.
 
+Plot comparison can be accessed `here <https://github.com/imenbenmhd/MiniProject/tree/main/docs/img/all_norms_0.png>`__.
 
-All Variables
-=============
-
-The CER using all variables available in the dataset is **3%**.
-
-
-Results for Protocol `proto2`
------------------------------
-
-Protocol `proto2` is configured to use the last 30 samples for each class in
-the dataset for training, and the first 20 samples for each class for testing
-our solution.  The samples are **not** randomized.  Results are present in
-terms of total Classification Error Rate (CER), in percentage. The best results
-are **bold faced**.
