@@ -4,6 +4,8 @@
    :target: https://github.com/imenbenmhd/MiniProject/actions/workflows/ci.yml?branch=main
 .. image:: https://img.shields.io/badge/docs-latest-orange.svg
    :target: https://imenbenmhd.github.io/MiniProject/
+.. image:: https://img.shields.io/badge/github-project-0000c0.svg
+   :target: https://github.com/imenbenmhd/MiniProject
 .. image:: https://img.shields.io/badge/License-MIT-blue.svg
    :target: https://opensource.org/licenses/MIT
 
