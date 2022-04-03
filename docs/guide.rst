@@ -25,7 +25,7 @@ using command-line options.  You will find more information adding the
 
 
 Results for Dataset 1 `winequality-white.csv`
------------------------------
+---------------------------------------------
 
 The samples are **not** randomized.  Results are present in
 terms of Mean Absolute Error. 
@@ -34,7 +34,7 @@ If you choose a normalization method, it outputs tables for each model,
 and prints out the plot comparing MAE levels for each random state of each model.
 
 For a chosen normalization 0 (minmax scaling):
-================
+==============================================
 
 MAE for Linear Regression.
 
@@ -59,7 +59,7 @@ MAE for Regression Trees.
 The plot can be accessed `here <https://github.com/imenbenmhd/MiniProject/tree/main/docs/img/minmax_00.png>`__.
 
 For a chosen normalization 1 (z-norm scaling):
-=============
+==============================================
 
 MAE for Linear Regression.
 
