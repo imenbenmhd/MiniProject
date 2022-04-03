@@ -1,109 +1,110 @@
 """User script to conduct the first hypothesis in the course"""
 
-import logging
-import itertools
-
 import numpy as np
 
-numpy.seterr(divide="ignore")
+np.seterr(divide="ignore")
 
 import database
-import preprocessor
 import algorithm
 import analysis
+import pandas as pd
+from tabulate import tabulate
+import matplotlib.pyplot as plt
 
-variables = [database.wine_variables, database.housing_variables]
-models = ["LinearRegression", "RegressionTrees"]
+models = ["LinearRegression", "Regressiontree"]
 
-def test_mae(dat, nor):
-    """Runs one single test, returns the MAE on the test set"""
+def test_mae(data, norm):
+    """Runs one single test, returns the MAE on the test set for chosen data and norm"""
 
-    data = database.data_base.index(dat)
-    norm = algorithm.normalization[nor]
-
-    y_train = np.zeros((3, 3))
-    y_predict = np.zeros((3, 3))
-
-    mae = np.zeros((3, 3))
-
-    # 3. trains our logistic regression system
-    for i in enumerate(models):
-        for j in enumerate(database.seeds):
-
-            y_train[i][j], y_predict[i][j] = algorithm.regression(data, norm, models[i])[j]
-            mae[i][j] = analysis.mean_abs_err(y_train[i][j], y_predict[i][j])
-
-    return mae
+    mae_tables = [pd.DataFrame(np.zeros((3, 2))), pd.DataFrame(np.zeros((3, 2)))]
+    mae_tables[0].columns = ["random state", "MAE"]
+    mae_tables[1].columns = ["random state", "MAE"]
 
 
-def test_impact_of_variables_single(tabnum, protocols):
-    """Builds the first table of my report"""
+    for i, model in enumerate(models):
+        y_train, y_predict = algorithm.regression(data, norm, models[i])
+        for j, seed in enumerate(database.seeds):
+            mae_tables[i].iloc[j, 0] = j
+            mae_tables[i].iloc[j, 1] = analysis.mean_abs_err(y_train[j], y_predict[j])
 
-    for n, p in enumerate(protocols):
-
-        print(
-            "\nTable %d: Single variables for Protocol `%s`:" % (n + tabnum, p)
-        )
-        print(60 * "-")
-
-        for k in database.VARIABLES:
-            result = test_one(p, [k])
-            print(("%-15s" % k), "| %d%%" % (100 * result,))
-
-    return len(protocols)
+    return mae_tables
 
 
-def test_impact_of_variables_2by2(tabnum, protocols):
-    """Builds the first table of my report"""
+def test_plot(mae_tables):
 
-    for n, p in enumerate(protocols):
-
-        print(
-            "\nTable %d: Variable combinations, 2x2 for Protocol `%s`:"
-            % (n + tabnum, p)
-        )
-        print(60 * "-")
-
-        for k in itertools.combinations(database.VARIABLES, 2):
-            result = test_one(p, k)
-            print(("%-30s" % " + ".join(k)), "| %d%%" % (100 * result,))
-
-    return len(protocols)
+    for i in range(len(mae_tables)):
+        plt.plot(mae_tables[i].iloc[:, 0], mae_tables[i].iloc[:, 1], '-o', label= models[i])
+    plt.xticks([0, 1, 2], ['proto1', 'proto2', 'proto3'], rotation = 30)
+    plt.yticks(np.arange(0, 0.07, step=0.01))
+    plt.xlabel('Protocol')
+    plt.ylabel('MAE')
+    plt.title("Comparison of different models for different seeds")
+    plt.legend()
+    plt.show()
 
 
-def test_impact_of_variables_3by3(tabnum, protocols):
-    """Builds the first table of my report"""
+def test_all_norms(data):
 
-    for n, p in enumerate(protocols):
+    y_lr = np.zeros(4)
+    y_rt = np.zeros(4)
+    norms = ['minmax', 'z-norm', 'poly-minmax', 'poly-znorm']
 
-        print(
-            "\nTable %d: Variable combinations, 3x3 for Protocol `%s`:"
-            % (n + tabnum, p)
-        )
-        print(60 * "-")
+    for i in range(4):
+        y_lr[i] = test_mae(data, i)[0].iloc[:, 1].mean()
+        y_rt[i] = test_mae(data, i)[1].iloc[:, 1].mean()
 
-        for k in itertools.combinations(database.VARIABLES, 3):
-            result = test_one(p, k)
-            print(("%-45s" % " + ".join(k)), "| %d%%" % (100 * result,))
+    plt.plot(norms, y_lr, label= models[0])
+    plt.plot(norms, y_rt, label= models[1])
+    plt.xlabel('Normalization')
+    plt.ylabel('MAE')
+    plt.title("Comparison of different norms for a chosen dataset")
+    plt.legend()
+    plt.subplots_adjust(left=0.1,
+                    bottom=0.1, 
+                    right=0.9, 
+                    top=0.9, 
+                    wspace=0.8, 
+                    hspace=0.8)
+    plt.show()
 
-    return len(protocols)
+
+def test_explore():
+
+    y_lr = np.zeros((3, 4))
+    y_rt = np.zeros((3, 4))
+    norms = ['minmax', 'z-norm', 'poly-minmax', 'poly-znorm']
+
+    for i in range(3):
+        for j in range(4):
+            y_lr[i][j] = test_mae(i, j)[0].iloc[:, 1].mean()
+            y_rt[i][j] = test_mae(i, j)[1].iloc[:, 1].mean()
 
 
-def test_impact_of_variables_all(tabnum, protocols):
-    """Builds the first table of my report"""
+    fig, (ax1, ax2, ax3) = plt.subplots(3, 1, sharex = True)
+    fig.suptitle('Explorative view for each dataset')
+    ax1.plot(norms, y_lr[0], label= models[0])
+    ax1.plot(norms, y_rt[0], label= models[1])
+    ax1.title.set_text('First database: ' + database.data_base[0])
+    ax1.set_ylabel('MAE')
+    ax2.plot(norms, y_lr[1], label= models[0])
+    ax2.plot(norms, y_rt[1], label= models[1])
+    ax2.title.set_text('Second database: ' + database.data_base[1])
+    ax2.set_ylabel('MAE')
+    ax3.plot(norms, y_lr[2], label= models[0])
+    ax3.plot(norms, y_rt[2], label= models[1])
+    ax3.title.set_text('Third database: ' + database.data_base[2])
+    ax3.set_ylabel('MAE')
+    ax1.legend()
+    ax2.legend()
+    ax3.legend()
+    plt.subplots_adjust(left=0.1,
+                    bottom=0.1, 
+                    right=0.9, 
+                    top=0.9, 
+                    wspace=0.8, 
+                    hspace=0.8)
+    plt.show()
 
-    for k, p in enumerate(protocols):
-
-        print("\nTable %d: All variables for Protocol `%s`:" % (k + tabnum, p))
-        print(60 * "-")
-
-        result = test_one(p, database.VARIABLES)
-        print(
-            ("%-45s" % " + ".join(database.VARIABLES)),
-            "| %d%%" % (100 * result,),
-        )
-
-    return len(protocols)
 
 
 def main():
@@ -113,27 +114,28 @@ def main():
 
     example_doc = """\
 examples:
-    1. Returns all tables in the original report:
+    1. Returns plots for all datasets in the original report:
        $ python result.py
-    2. Only prints results for dataset 2:
+    2. Only prints results and plots for dataset 2 (for every normalization method):
        $ python result.py -d=2
-    3. Only prints results for dataset 2 and normalization 1:
+    3. Only prints results and plots for dataset 2 and normalization 1:
        $ python result.py --dataset=2 --norm=1
+
     """
 
     parser = argparse.ArgumentParser(
         usage="python %(prog)s [options]",
-        description="Performs Linear Regression and Regression trees algorithms",
+        description="Performs Linear Regression and Regression Trees algorithms",
         epilog=example_doc,
         formatter_class=argparse.RawDescriptionHelpFormatter,
     )
 
     parser.add_argument(
         "-n",
-        "--normalization",
+        "--norm",
         choices=[0, 1, 2, 3],
         type=int,
-        help="Chooses which normalization to apply.  If you choose '0', then "
+        help="Chooses which normalization to apply (optional). If you choose '0', then "
              "you would apply the minmax scaler. If you choose '1', "
              "then you would apply the z-normalization. If you choose '2', "
              "you would apply the polynomial features scaler first, and then "
@@ -145,35 +147,38 @@ examples:
     parser.add_argument(
         "-d",
         "--dataset",
-        choices=["0", "1", "2"],
+        choices=[0, 1, 2],
         type=int,
-        help="decides which dataset to use for reporting results. "
-             "Options are %(default)s (0: winequality-white, 1: winequality-red,"
+        help="Decides which dataset to use for reporting results. "
+             "Options are %(choices)s (0: winequality-white, 1: winequality-red,"
              " 2: housing)",
         )
 
     args = parser.parse_args()
 
-    # keeps a nice sequential table number
-    tabnum = 1
-
-    if args.norm is not None:
-
-        if args.norm == 0:
-            test_impact_of_variables_single(tabnum, args.protocol)
-        elif args.norm == 1:
-            test_impact_of_variables_2by2(tabnum, args.protocol)
-        elif args.norm == 2:
-            test_impact_of_variables_3by3(tabnum, args.protocol)
-        elif args.norm == 3:
-            test_impact_of_variables_all(tabnum, args.protocol)
-
+    if args.dataset is not None:
+        if args.norm is not None:
+            mae_tables = test_mae(args.dataset, args.norm)
+            for i, model in enumerate(models):
+                print("MODEL : "+model)
+                print(tabulate(mae_tables[i], headers='keys', tablefmt='psql'))
+            test_plot(mae_tables)
+        else:
+            print("Dataset: ", database.data_base[args.dataset])
+            for j in range(4):
+                print("Normaliation method: ", j)
+                mae_tables = test_mae(args.dataset, j)
+                for i, model in enumerate(models):
+                    print("MODEL: ", model)
+                    print(tabulate(mae_tables[i], headers='keys', tablefmt='psql'))
+                test_plot(mae_tables)
+            test_all_norms(args.dataset)
+            
     else:
-        tabnum += test_impact_of_variables_single(tabnum, args.protocol)
-        tabnum += test_impact_of_variables_2by2(tabnum, args.protocol)
-        tabnum += test_impact_of_variables_3by3(tabnum, args.protocol)
-        test_impact_of_variables_all(tabnum, args.protocol)
-
+        if args.norm is not None:
+            print(example_doc)
+        else:
+            test_explore()
 
 if __name__ == "__main__":
     main()
