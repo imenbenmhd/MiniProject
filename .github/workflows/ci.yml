@@ -35,7 +35,7 @@ jobs:
           pip install sphinx
           pip install pytest-cov
           pip install coveralls
-          pip install insegel
+          pip install sphinx-pdj-theme
       - name: Test with pytest
         shell: bash
         run: |

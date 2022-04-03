@@ -1,4 +1,4 @@
 License
 =======
 
-This project is licensed under the 2-clause BSD License.
+This project is licensed under the MIT License.
