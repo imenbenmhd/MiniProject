@@ -1,7 +1,7 @@
 """Test unit for preprocessor code"""
 
 import numpy as np
-import preprocessor
+from . import preprocessor
 
 
 def test_minmax_0_1():

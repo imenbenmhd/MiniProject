@@ -42,8 +42,3 @@ For both datasets, two Machine Learning approaches are used for the prediction:
 
 - Regression Trees
 
------------
-Prerequisites
------------
-
-In order to run these scripts, the installation of `Python <https://www.python.org/>`__ is necessary.

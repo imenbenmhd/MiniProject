@@ -4,9 +4,9 @@ import numpy as np
 
 np.seterr(divide="ignore")
 
-import database
-import algorithm
-import analysis
+from . import database
+from . import algorithm
+from . import analysis
 import pandas as pd
 from tabulate import tabulate
 import matplotlib.pyplot as plt

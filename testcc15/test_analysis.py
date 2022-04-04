@@ -1,6 +1,6 @@
 """Test unit for analysis code"""
 
-import analysis
+from . import analysis
 import numpy as np
 
 

@@ -1,6 +1,6 @@
 import numpy as np
-import database
-import preprocessor
+from . import database
+from . import preprocessor
 from sklearn.linear_model import LinearRegression
 from sklearn.tree import DecisionTreeRegressor
 
