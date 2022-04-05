@@ -1,2 +1,2 @@
 include requirements.txt
-recursive-include testcc13/data/ *
+include testcc15/data/*

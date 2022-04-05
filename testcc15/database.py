@@ -67,7 +67,7 @@ def load(i):
 
     """
     if i == 2:
-        Data_filename=pkg_resources.resource_filename(__name__,"housing.data")
+        Data_filename=pkg_resources.resource_filename(__name__,"/data/housing.data")
 
 
         return np.loadtxt(Data_filename)
@@ -75,7 +75,7 @@ def load(i):
     
     # the files don't have the same extension so we seperate in two cases
     else:
-        Data_filename=pkg_resources.resource_filename(__name__,data_base[i])
+        Data_filename=pkg_resources.resource_filename(__name__,"/data/"+data_base[i])
 
         with open(Data_filename, "rt") as f:
             reader = csv.reader(f, delimiter=";")

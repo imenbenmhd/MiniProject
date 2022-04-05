@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ['3.8', '3.9']
+        python-version: ['3.9', '3.10']
     
     steps:
       - name: checkout code
@@ -27,7 +27,7 @@ jobs:
         shell: bash
         run: |
           sphinx-build -b doctest docs sphinx
-          pytest -sv --cov=cc2 cc2
+          pytest -sv --cov=testcc15
       - name: Build documentation
         shell: bash
         run: |
@@ -45,7 +45,7 @@ jobs:
           conda info -a
           coveralls --service=github
       - name: Deploy documentation to GitHub Pages
-        if: ${{ matrix.python-version == '3.8' }}  #deploys only one variant
+        if: ${{ matrix.python-version == '3.9' }}  #deploys only one variant
         uses: crazy-max/ghaction-github-pages@v2
         with:
           target_branch: gh-page
@@ -56,13 +56,13 @@ jobs:
 
       - name: Build PyPI (source) package
         # builds only from one variant
-        if: ${{ matrix.python-version == '3.8' }}
+        if: ${{ matrix.python-version == '3.9' }}
         shell: bash -l {0}
         run: |
           python3 setup.py sdist
       - name: Deploy package to TestPyPI
         # deploys only one variant, and if it is tagged
-        if: ${{ matrix.python-version == '3.8'}}
+        if: ${{ matrix.python-version == '3.9' && startswith (github.ref, 'refs/tags') }}
         uses: pypa/gh-action-pypi-publish@master
         with:
           password: ${{ secrets.TEST_PYPI_API_TOKEN }}
