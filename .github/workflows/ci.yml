@@ -26,6 +26,10 @@ jobs:
       - name: Test with pytest
         shell: bash
         run: |
+          testcc15-result --help
+          testcc15-result
+          testcc15-result --dataset=0
+          testcc15-result --dataset=0 --norm=1
           sphinx-build -b doctest docs sphinx
           pytest -sv --cov=testcc15 testcc15
           coveralls --service=github
