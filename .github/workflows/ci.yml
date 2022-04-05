@@ -27,7 +27,13 @@ jobs:
         shell: bash
         run: |
           sphinx-build -b doctest docs sphinx
-          pytest -sv --cov=testcc15
+          pytest -sv --cov=testcc15 testcc15
+          coveralls --service=github
+        env: 
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          COVERALLS_FLAG_NAME: ${{ matrix.python-version }}
+          COVERALLS_PARALLEL: true
+
       - name: Build documentation
         shell: bash
         run: |
@@ -35,15 +41,6 @@ jobs:
           touch sphinx/.nojekyll
           coverage html -d sphinx/coverage
 
-      - name: upload coverage
-        shell: bash -l {0}
-        env: 
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          COVERALLS_FLAG_NAME: ${{ matrix.python-version }}
-          COVERALLS_PARALLEL: true
-        run: |
-          conda info -a
-          coveralls --service=github
       - name: Deploy documentation to GitHub Pages
         if: ${{ matrix.python-version == '3.9' }}  #deploys only one variant
         uses: crazy-max/ghaction-github-pages@v2
@@ -60,6 +57,7 @@ jobs:
         shell: bash -l {0}
         run: |
           python3 setup.py sdist
+
       - name: Deploy package to TestPyPI
         # deploys only one variant, and if it is tagged
         if: ${{ matrix.python-version == '3.9' && startswith (github.ref, 'refs/tags') }}
@@ -68,4 +66,15 @@ jobs:
           password: ${{ secrets.TEST_PYPI_API_TOKEN }}
           repository_url: https://test.pypi.org/legacy/
 
-    
+  coveralls:
+    name: complation cov
+    needs: test
+    runs-on: ubuntu-latest
+    container: python:3-slim
+    steps:
+    - name: Finish
+      run: |
+        pip3 install --upgrade coveralls
+        coveralls --service=github --finish
+      env: 
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
