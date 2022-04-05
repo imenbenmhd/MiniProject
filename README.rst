@@ -8,6 +8,8 @@
    :target: https://github.com/imenbenmhd/MiniProject
 .. image:: https://img.shields.io/badge/License-MIT-blue.svg
    :target: https://opensource.org/licenses/MIT
+.. image:: https://img.shields.io/badge/pypi-project-blueviolet.svg
+   :target: https://test.pypi.org/project/testcc15
 
 ============================================================
  Mini project - Analysis of multiple datasets
