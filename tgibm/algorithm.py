@@ -11,7 +11,7 @@ def normalize(X, norm):
     """
     chose a preproccessing method to apply to the data
 
-    Parameters :
+    Parameters:
 
         X : np.ndarray
             The data to normalize
@@ -19,9 +19,8 @@ def normalize(X, norm):
         norm : int
             The index of normalization list to know which preprocessing method to use.
 
-    Returns :
-    
-        normalized_set : numpy.ndarray
+    Returns:
+        numpy.ndarray,
             a 2D array same shape as the input but normalized.
 
     """
@@ -43,7 +42,7 @@ def regression(data, norm, model):
     """
     apply the regression model to the data with a specific normalization method as preprocessing
 
-    Parameters :
+    Parameters:
 
         data : int
             The index of data_base list to know which data to load.
@@ -54,11 +53,11 @@ def regression(data, norm, model):
         model : string
             Which regression model to apply.
 
-    Returns : 
-
-        y_predict : list of np.array
+    Returns: 
+        list of np.array,
             A list of the values of the predicted attribute for every protocol.
-        y_predicted : list of np.array
+        
+        list of np.array,
             A list of the true values of the test set to compare with the prediction.
 
     """

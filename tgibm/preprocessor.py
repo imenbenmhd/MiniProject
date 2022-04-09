@@ -33,7 +33,8 @@ def PolynomialFeaturesScaler(X, scale, degree, interaction=False):
                     at most degree distinct input features desired range of transformed data.
 
     Returns: 
-        numpy.ndarray, Transformed array.
+        numpy.ndarray, 
+            Transformed array.
 
     """
     X_transform = X[
@@ -72,7 +73,8 @@ def MinMaxScaler_(X, feature_range=(0, 1)):
                         Desired range of transformed data.
                         
     Returns: 
-        numpy.ndarray, A 2D numpy ndarray with the same dimensions as the input array ``X``,
+        numpy.ndarray, 
+                    A 2D numpy ndarray with the same dimensions as the input array X
                     but with its values normalized according to class sklearn.preprocessing.MinMaxScaler.
     
     """
@@ -103,7 +105,8 @@ def Standard_Scaler(X):
             corresponds to data for a particular class.
 
     Returns:
-        numpy.ndarray, A 2D numpy ndarray with the same dimensions as the input array ``X``,
+        numpy.ndarray, 
+            A 2D numpy ndarray with the same dimensions as the input array X
             but with its values normalized according to class sklearn.preprocessing.StandardScaler.
 
     """
@@ -155,7 +158,7 @@ def normalize(X, norm):
 
     Returns: 
         numpy.ndarray,
-                A 3D numpy ndarray with the same dimensions as the input array ``X``,
+                A 3D numpy ndarray with the same dimensions as the input array X
                 but with its values normalized according to the norm input.$
 
     """

@@ -53,15 +53,13 @@ def load(i):
     """
     Load the desired data from the Data folder
 
-    Parameters : 
+    Parameters: 
     
-
         i : int
             The index of data_base list to know which data to load.
 
-    Returns :
-
-        X : numpy.ndarray
+    Returns:
+        numpy.ndarray,
             A 3D numpy ndarray where the columns are the features of the data and the last column is the
             value that we would like to predict.
 
@@ -97,14 +95,13 @@ def split_data(i):
     Split the data into 3 different test and train sets with the use of train_test_split
     function from sklearn
 
-    Parameters : 
+    Parameters: 
     
         i : int
             The index of data_base list to know which data to load.
 
-    Returns : 
-
-        data : dict(k,dict(subset : np.array))
+    Returns: 
+        dict(k,dict(subset np.array)),
                 A dictionnary where the keys k represent the protocol used to split the data
                 and subset is either "train" or "test".
 
@@ -129,7 +126,7 @@ def extract(i, protocol, subset):
     """
     extract the protocol of interest
 
-    Parameters :
+    Parameters:
 
         i : int
             The index of data_base list to know which data to load.
@@ -140,9 +137,9 @@ def extract(i, protocol, subset):
         subset : int
             The index of subsets list to know if we extract train set or test set.
 
-    Returns :
+    Returns:
 
-        X : np.ndarray
+        np.ndarray,
             A 3D array of the desired dataset, split protocol and subset.
 
     """
