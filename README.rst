@@ -9,7 +9,7 @@
 .. image:: https://img.shields.io/badge/License-MIT-blue.svg
    :target: https://opensource.org/licenses/MIT
 .. image:: https://img.shields.io/badge/pypi-project-blueviolet.svg
-   :target: https://test.pypi.org/project/testcc15
+   :target: https://test.pypi.org/project/tjibm
 
 ============================================================
  Mini project - Analysis of multiple datasets
@@ -33,6 +33,8 @@ This repository contains mini-projects for two datasets:
 - `Dataset 2 <https://archive.ics.uci.edu/ml/machine-learning-databases/housing/>`__: Boston House Prices (prediction of house prices in Boston based on different numeric and categorical features)
 
 Both datasets were retrieved from the UCI Machine Learning Repositories, and can be found in the folder `Data <https://github.com/imenbenmhd/MiniProject/tree/preprocessor/Data>`__.
+P. Cortez, A. Cerdeira, F. Almeida, T. Matos and J. Reis.
+Modeling wine preferences by data mining from physicochemical properties. In Decision Support Systems, Elsevier, 47(4):547-553, 2009.
 
 -----------
 Description

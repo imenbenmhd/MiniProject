@@ -1,26 +1,18 @@
 Unit tests
 ============
 
-Unit tests can be excuted by the use of the python library pytest. The unit tests of each modules are seperated in
-4 differents files that are ran as seen after.
+Unit tests are seperated in 4 files to test the module : preprocessor, database, algorithm and analysis.
+You can execute them all by using nose library and run : 
 
-Database
----------
 .. code-block:: shell
 
-  (project) $ conda install pytest
-  (project) $ pytest -sv test.py
-============================= test session starts ==============================
-platform linux -- Python 3.9.11, pytest-6.2.5, py-1.11.0, pluggy-1.0.0 -- /.../envs/miniproject/bin/python
-cachedir: .pytest_cache
-rootdir: /.../MiniProject
-collected 3 items                                                              
+  (project) $ pip3 install nose
+  (project) $ nosetests tgibm
+.............
+----------------------------------------------------------------------
+Ran 13 tests in 2.107s
 
-test-database.py::test_load_1 PASSED
-test-database.py::test_split_1 PASSED
-test-database.py::test_split_2 PASSED
-
-============================== 3 passed in 0.36s ===============================
+OK
 
 
 In case of problems, please get in touch with us `by e-mail

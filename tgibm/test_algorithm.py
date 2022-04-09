@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from testcc15 import algorithm
+from . import algorithm
 import pytest
 
 

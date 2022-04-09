@@ -4,31 +4,29 @@
 from setuptools import setup, find_packages
 
 
-def load_requirements(f):
-    retval = [str(k.strip()) for k in open(f, "rt")]
-    print("done")
-    return [k for k in retval if k and k[0] not in ("#", "-")]
+with open('./requirements.txt') as f:
+    required = f.read().splitlines()
 
 
 setup(
-    name="testcc15",
+    name="tgibm",
     version="1.0.0",
-    description="Example of classification using regression",
+    description="Example of a fully reproducible project !",
     url="https://github.com/imenbenmhd/MiniProject",
-    license="BSD",
+    license="MIT license",
     author="Imen Ben Mahmoud & Teodora Glamocanin",
-    author_email="",
+    author_email="imen.benmhd@gmail.com",
     long_description=open("README.rst").read(),
     long_description_content_type="text/x-rst",
     packages=find_packages(),
     include_package_data=True,
-    package_data={'testcc15': ['data/*']},
-    install_requires=load_requirements("./requirements.txt"),
-    entry_points={"console_scripts": ["testcc15-result = testcc15.result:main"]},
+    package_data={'tgibm': ['data/*']},
+    install_requires=required,
+    entry_points={"console_scripts": ["tgibm-result = tgibm.result:main"]},
     classifiers=[
         "Development Status :: 4 - Beta",
         "Intended Audience :: Developers",
-        "License :: OSI Approved :: BSD License",
+        "License :: OSI Approved :: MIT License",
         "Natural Language :: English",
         "Programming Language :: Python",
         "Programming Language :: Python :: 3",

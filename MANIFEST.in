@@ -1,2 +1,2 @@
 include requirements.txt
-include testcc15/data/*
+include tgibm/data/*

@@ -4,22 +4,22 @@ Python API
 Database
 --------
 
-.. automodule :: testcc12.database
+.. automodule :: tgibm.database
    :members:
      
 The ML algorithms
 -----------------
-.. automodule:: testcc12.algorithm
+.. automodule:: tgibm.algorithm
    :members:
 
 The Preproccessing methods
 --------------------------
-.. automodule:: testcc12.preprocessor
+.. automodule:: tgibm.preprocessor
    :members:
 
 Analysis part 
 -------------
-.. automodule:: testcc12.analysis
+.. automodule:: tgibm.analysis
    :members:
 
 

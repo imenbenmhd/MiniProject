@@ -10,7 +10,7 @@ command:
 
 .. code-block:: sh
 
-   (project) $ python result.py
+   (project) $ tgibm-result
 
 
 For your reference, the tables and plots are repeated below, so you can check the
@@ -20,7 +20,7 @@ using command-line options.  You will find more information adding the
 
 .. code-block:: sh
 
-   (project) $ python result.py --help
+   (project) $ tgibm-result --help
 
 
 

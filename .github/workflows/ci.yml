@@ -26,12 +26,12 @@ jobs:
       - name: Test with pytest
         shell: bash
         run: |
-          testcc15-result --help
-          testcc15-result
-          testcc15-result --dataset=0
-          testcc15-result --dataset=0 --norm=1
+          tgibm-result --help
+          tgibm-result
+          tgibm-result --dataset=0
+          tgibm-result --dataset=0 --norm=1
           sphinx-build -b doctest docs sphinx
-          pytest -sv --cov=testcc15 testcc15
+          pytest -sv --cov=tgibm tgibm
           coveralls --service=github
         env: 
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
