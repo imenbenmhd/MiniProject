@@ -6,4 +6,3 @@ scipy==1.8.0
 tabulate==0.8.9
 setuptools
 pytest
-csv
