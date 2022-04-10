@@ -21,6 +21,37 @@ using command-line options.  You will find more information adding the
 .. code-block:: sh
 
    (project) $ tgibm-result --help
+   
+::
+
+   options:
+  -h, --help            show this help message and exit
+  -n {0,1,2,3}, --norm {0,1,2,3}
+                        Chooses which normalization to apply (optional). If you choose '0', 
+                        then you would apply the minmax scaler. If you choose '1', then you 
+                        would apply the z-normalization. If you choose '2', you would apply 
+                        the polynomial features scaler first, and then the minmax scaler. If    
+                        you choose '4', then you would apply the polynomial features scaler 
+                        first, and then the z-normalization scaler. By default, if no specific  
+                        case is select, prints all results.
+  -d {0,1,2}, --dataset {0,1,2}
+                        Decides which dataset to use for reporting results.
+                        Options are 0, 1, 2 (0: winequality-white, 1: winequality-red, 2: housing)
+
+
+Example of a pipeline
+---------------------
+
+Command-line arguments can help you select different parameters of the pipeline.
+
+For example, to run both models on the Wine quality (white wine) dataset 
+with a given normalization method Z-normalization, you should run:
+
+.. code-block:: sh
+
+    $ tgibm-result -d=0 -n=1
+
+
 
 
 
@@ -88,4 +119,3 @@ normalization method, and 4 plots, together with the plot comparing mean values 
 normalization methods.
 
 Plot comparison can be accessed `here <https://github.com/imenbenmhd/MiniProject/tree/main/docs/img/all_norms_0.png>`__.
-
