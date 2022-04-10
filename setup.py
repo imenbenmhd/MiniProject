@@ -10,7 +10,7 @@ with open('./requirements.txt') as f:
 
 setup(
     name="tgibm",
-    version="1.1.0",
+    version="1.1.1",
     description="Example of a fully reproducible project !",
     url="https://github.com/imenbenmhd/MiniProject",
     license="MIT license",
