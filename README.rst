@@ -2,6 +2,8 @@
    :target: https://coveralls.io/github/imenbenmhd/MiniProject?branch=main&service=github
 .. image:: https://github.com/imenbenmhd/MiniProject/actions/workflows/ci.yml/badge.svg?
    :target: https://github.com/imenbenmhd/MiniProject/actions/workflows/ci.yml?branch=main
+.. image:: https://img.shields.io/github/v/tag/imenbenmhd/MiniProject?branch=main
+   :target: https://github.com/imenbenmhd/MiniProject
 .. image:: https://img.shields.io/badge/docs-latest-orange.svg
    :target: https://imenbenmhd.github.io/MiniProject/
 .. image:: https://img.shields.io/badge/github-project-0000c0.svg
