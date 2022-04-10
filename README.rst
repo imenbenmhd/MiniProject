@@ -1,5 +1,5 @@
 .. image:: https://coveralls.io/repos/github/imenbenmhd/MiniProject/badge.svg?branch=main
-   :target: https://coveralls.io/github/imenbenmhd/MiniProject?branch=main&service=github
+   :target: https://coveralls.io/github/imenbenmhd/MiniProject?branch=main
 .. image:: https://github.com/imenbenmhd/MiniProject/actions/workflows/ci.yml/badge.svg?
    :target: https://github.com/imenbenmhd/MiniProject/actions/workflows/ci.yml?branch=main
 .. image:: https://img.shields.io/github/v/tag/imenbenmhd/MiniProject?branch=main
