@@ -21,7 +21,8 @@ def mae_size(data, norm, expected):
 
     mae = result.test_mae(data, norm)[0].shape
 
-    assert np.isclose(mae, expected), "Expected %r, but got %r" % (
+
+    assert np.isclose(mae, expected).all(), "Expected %r, but got %r" % (
         expected,
         mae,
     )
