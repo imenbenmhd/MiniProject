@@ -8,8 +8,6 @@
    :target: https://imenbenmhd.github.io/MiniProject/
 .. image:: https://img.shields.io/badge/github-project-0000c0.svg
    :target: https://github.com/imenbenmhd/MiniProject
-.. image:: https://img.shields.io/badge/License-MIT-blue.svg
-   :target: https://opensource.org/licenses/MIT
 .. image:: https://img.shields.io/badge/pypi-project-blueviolet.svg
    :target: https://test.pypi.org/project/tgibm
 
