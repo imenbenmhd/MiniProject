@@ -2,3 +2,5 @@
 sphinx/
 __pycache__/
 .coverage
+.pypirc
+.requirements.txt.swp
