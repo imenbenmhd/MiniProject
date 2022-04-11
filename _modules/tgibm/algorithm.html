@@ -1,0 +1,274 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xml:lang="" lang="" version="-//W3C//DTD XHTML 1.1//EN" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+  <title>tgibm.algorithm &mdash; MiniProject  documentation</title>
+  
+
+  
+
+  
+
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'/>
+    <link rel="stylesheet" href="../../_static/css/pdj.css" type="text/css" />
+
+  
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../../_static/css/pdj.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="MiniProject  documentation" href="../../index.html"/>
+        <link rel="up" title="Module code" href="../index.html"/>
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="cache-control" content="public" />
+    <meta name="robots" content="follow, all" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Add jQuery library -->
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+  </head>
+
+  <body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../../index.html" class="fa fa-home"> MiniProject </a>
+        <div role="search">
+	  <form id ="rtd-search-form" class="wy-form"
+		action="../../search.html" method="get">
+	    <input type="text" name="q" placeholder="Search docs" />
+	    <input type="hidden" name="check_keywords" value="yes" />
+	    <input type="hidden" name="area" value="default" />
+	  </form>
+	</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	
+          
+          
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../install.html">How to install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../guide.html">User Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../guide.html#example-of-a-pipeline">Example of a pipeline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../guide.html#results-for-dataset-1-winequality-white-csv">Results for Dataset 1 <cite>winequality-white.csv</cite></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../api.html">Python API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../api.html#module-tgibm.database">Database</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api.html#module-tgibm.algorithm">The ML algorithms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api.html#module-tgibm.preprocessor">The Preproccessing methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api.html#module-tgibm.analysis">Analysis part</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../unittesting.html">Unit tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">License</a></li>
+</ul>
+
+          
+        
+
+      </div>
+      &nbsp;
+    </nav>
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      <nav class="wy-nav-top" id="barra-mobile" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="#">Porão do Juca</a>
+      </nav>
+
+      <div class="wy-nav-content">
+	<div class="fundo-claro">
+	</div>
+	<div class="fundo-escuro">
+	</div>
+
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+	    
+	    <!-- <ul class="wy-breadcrumbs"> -->
+	    <!--   <li><a href="#">Docs</a> &raquo;</li> -->
+
+	    <!--   <li>Features</li> -->
+	    <!--   <li class="wy-breadcrumbs-aside"> -->
+
+	    <!-- 	<a href="_sources/index.txt" rel="nofollow"> View page source</a> -->
+
+	    <!--   </li> -->
+	    <!-- </ul> -->
+	    <!-- <hr/> -->
+	  </div>
+
+          <div role="main" class="">
+
+	    <div id="content" class="hfeed entry-container hentry">
+  <h1>Source code for tgibm.algorithm</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">database</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">preprocessor</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="k">import</span> <span class="n">LinearRegression</span>
+<span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="k">import</span> <span class="n">DecisionTreeRegressor</span>
+
+<span class="n">normalization</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;MinMaxScaler_&quot;</span><span class="p">,</span> <span class="s2">&quot;Standard_Scaler&quot;</span><span class="p">,</span> <span class="s2">&quot;PolynomialFeaturesScaler&quot;</span><span class="p">]</span>
+
+
+<div class="viewcode-block" id="normalize"><a class="viewcode-back" href="../../api.html#tgibm.algorithm.normalize">[docs]</a><span class="k">def</span> <span class="nf">normalize</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">norm</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    chose a preproccessing method to apply to the data</span>
+
+<span class="sd">    Parameters:</span>
+
+<span class="sd">        X : np.ndarray</span>
+<span class="sd">            The data to normalize</span>
+
+<span class="sd">        norm : int</span>
+<span class="sd">            The index of normalization list to know which preprocessing method to use.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        numpy.ndarray,</span>
+<span class="sd">            a 2D array same shape as the input but normalized.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">degree</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="k">if</span> <span class="n">norm</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">normalization_to_call</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">preprocessor</span><span class="p">,</span> <span class="n">normalization</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+        <span class="n">normalized_set</span> <span class="o">=</span> <span class="n">normalization_to_call</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="s2">&quot;minmax&quot;</span><span class="p">,</span> <span class="n">degree</span><span class="o">=</span><span class="n">degree</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">norm</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="n">normalization_to_call</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">preprocessor</span><span class="p">,</span> <span class="n">normalization</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+        <span class="n">normalized_set</span> <span class="o">=</span> <span class="n">normalization_to_call</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="s2">&quot;z-norm&quot;</span><span class="p">,</span> <span class="n">degree</span><span class="o">=</span><span class="n">degree</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">normalization_to_call</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">preprocessor</span><span class="p">,</span> <span class="n">normalization</span><span class="p">[</span><span class="n">norm</span><span class="p">])</span>
+        <span class="n">normalized_set</span> <span class="o">=</span> <span class="n">normalization_to_call</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">normalized_set</span></div>
+
+
+<div class="viewcode-block" id="regression"><a class="viewcode-back" href="../../api.html#tgibm.algorithm.regression">[docs]</a><span class="k">def</span> <span class="nf">regression</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">norm</span><span class="p">,</span> <span class="n">model</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    apply the regression model to the data with a specific normalization method as preprocessing</span>
+
+<span class="sd">    Parameters:</span>
+
+<span class="sd">        data : int</span>
+<span class="sd">            The index of data_base list to know which data to load.</span>
+
+<span class="sd">        norm : int</span>
+<span class="sd">            The index of normalization list to know which preprocessing method to use.</span>
+
+<span class="sd">        model : string</span>
+<span class="sd">            Which regression model to apply.</span>
+
+<span class="sd">    Returns: </span>
+<span class="sd">        list of np.array,</span>
+<span class="sd">            A list of the values of the predicted attribute for every protocol.</span>
+<span class="sd">        </span>
+<span class="sd">        list of np.array,</span>
+<span class="sd">            A list of the true values of the test set to compare with the prediction.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">y_predicted</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">y_tested</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">database</span><span class="o">.</span><span class="n">seeds</span><span class="p">)):</span>
+        <span class="n">training_set</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">testing_set</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">normalized_train</span> <span class="o">=</span> <span class="n">normalize</span><span class="p">(</span><span class="n">training_set</span><span class="p">,</span> <span class="n">norm</span><span class="p">)</span>
+        <span class="n">normalized_test</span> <span class="o">=</span> <span class="n">normalize</span><span class="p">(</span><span class="n">testing_set</span><span class="p">,</span> <span class="n">norm</span><span class="p">)</span>
+
+        <span class="n">y_train</span> <span class="o">=</span> <span class="n">normalized_train</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">y_test</span> <span class="o">=</span> <span class="n">normalized_test</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">model</span> <span class="o">==</span> <span class="s2">&quot;LinearRegression&quot;</span><span class="p">:</span>
+            <span class="n">regressor</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">model</span> <span class="o">==</span> <span class="s2">&quot;Regressiontree&quot;</span><span class="p">:</span>
+            <span class="n">regressor</span> <span class="o">=</span> <span class="n">DecisionTreeRegressor</span><span class="p">()</span>
+
+        <span class="n">regressor</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">normalized_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+        <span class="n">y_predict</span> <span class="o">=</span> <span class="n">regressor</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">normalized_test</span><span class="p">)</span>
+        <span class="n">y_tested</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y_test</span><span class="p">)</span>
+        <span class="n">y_predicted</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y_predict</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">y_tested</span><span class="p">,</span> <span class="n">y_predicted</span></div>
+    <span class="c1"># return for the 3 seeds</span>
+</pre></div>
+
+	    </div>
+            <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2022, Imen Ben Mahmoud and Theodora glamocanin.
+    </p>
+  </div>
+
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/jucacrispim/sphinx_pdj_theme">theme</a> provided by <a href="http://poraodojuca.net">Porão do Juca</a>.
+
+</footer>
+	</div>
+	</div>
+	  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+    <script type="text/javascript" src="../../_static/documentation_options.js">
+
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js">
+
+    </script>
+    <script type="text/javascript" src="../../_static/underscore.js">
+
+    </script>
+    <script type="text/javascript" src="../../_static/doctools.js">
+
+    </script>
+
+  
+
+   <script type="text/javascript"
+           src="../../_static/js/theme.js"></script>
+
+   <script type="text/javascript"
+           src="../../_static/js/pdj.js"></script>
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+  </body>
+</html>

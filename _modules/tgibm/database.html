@@ -1,0 +1,335 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xml:lang="" lang="" version="-//W3C//DTD XHTML 1.1//EN" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+  <title>tgibm.database &mdash; MiniProject  documentation</title>
+  
+
+  
+
+  
+
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'/>
+    <link rel="stylesheet" href="../../_static/css/pdj.css" type="text/css" />
+
+  
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../../_static/css/pdj.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="MiniProject  documentation" href="../../index.html"/>
+        <link rel="up" title="Module code" href="../index.html"/>
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="cache-control" content="public" />
+    <meta name="robots" content="follow, all" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Add jQuery library -->
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+  </head>
+
+  <body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../../index.html" class="fa fa-home"> MiniProject </a>
+        <div role="search">
+	  <form id ="rtd-search-form" class="wy-form"
+		action="../../search.html" method="get">
+	    <input type="text" name="q" placeholder="Search docs" />
+	    <input type="hidden" name="check_keywords" value="yes" />
+	    <input type="hidden" name="area" value="default" />
+	  </form>
+	</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	
+          
+          
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../install.html">How to install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../guide.html">User Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../guide.html#example-of-a-pipeline">Example of a pipeline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../guide.html#results-for-dataset-1-winequality-white-csv">Results for Dataset 1 <cite>winequality-white.csv</cite></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../api.html">Python API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../api.html#module-tgibm.database">Database</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api.html#module-tgibm.algorithm">The ML algorithms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api.html#module-tgibm.preprocessor">The Preproccessing methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api.html#module-tgibm.analysis">Analysis part</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../unittesting.html">Unit tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">License</a></li>
+</ul>
+
+          
+        
+
+      </div>
+      &nbsp;
+    </nav>
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      <nav class="wy-nav-top" id="barra-mobile" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="#">Porão do Juca</a>
+      </nav>
+
+      <div class="wy-nav-content">
+	<div class="fundo-claro">
+	</div>
+	<div class="fundo-escuro">
+	</div>
+
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+	    
+	    <!-- <ul class="wy-breadcrumbs"> -->
+	    <!--   <li><a href="#">Docs</a> &raquo;</li> -->
+
+	    <!--   <li>Features</li> -->
+	    <!--   <li class="wy-breadcrumbs-aside"> -->
+
+	    <!-- 	<a href="_sources/index.txt" rel="nofollow"> View page source</a> -->
+
+	    <!--   </li> -->
+	    <!-- </ul> -->
+	    <!-- <hr/> -->
+	  </div>
+
+          <div role="main" class="">
+
+	    <div id="content" class="hfeed entry-container hentry">
+  <h1>Source code for tgibm.database</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python3</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">csv</span>
+<span class="kn">from</span> <span class="nn">sklearn</span> <span class="k">import</span> <span class="n">model_selection</span>
+<span class="kn">import</span> <span class="nn">pkg_resources</span>
+
+<span class="n">seeds</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">42</span><span class="p">,</span> <span class="mi">256</span><span class="p">]</span>
+
+<span class="n">PROTOCOLS</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;proto1&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;train&quot;</span><span class="p">:</span> <span class="n">seeds</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s2">&quot;test&quot;</span><span class="p">:</span> <span class="n">seeds</span><span class="p">[</span><span class="mi">0</span><span class="p">]},</span>
+    <span class="s2">&quot;proto2&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;train&quot;</span><span class="p">:</span> <span class="n">seeds</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s2">&quot;test&quot;</span><span class="p">:</span> <span class="n">seeds</span><span class="p">[</span><span class="mi">1</span><span class="p">]},</span>
+    <span class="s2">&quot;proto3&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;train&quot;</span><span class="p">:</span> <span class="n">seeds</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s2">&quot;test&quot;</span><span class="p">:</span> <span class="n">seeds</span><span class="p">[</span><span class="mi">2</span><span class="p">]},</span>
+<span class="p">}</span>
+
+<span class="n">data_base</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;winequality-white.csv&quot;</span><span class="p">,</span> <span class="s2">&quot;winequality-red.csv&quot;</span><span class="p">,</span> <span class="s2">&quot;housing.data&quot;</span><span class="p">]</span>
+
+<span class="n">wine_variables</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;fixed acidity&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;volatile acidity&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;citric acid&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;residual sugar&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;chlorides&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;free sulfur dioxide&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;total sulfur dioxide&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;density&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;pH&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;sulphates&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;alcohol&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+
+<span class="n">housing_variables</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;CRIM&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ZN&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;INDUS&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;CHAS&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;NOX&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;RM&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;AGE&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;DIS&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;RAD&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TAX&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;PTRATIO&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;B&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;LSTAT&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+
+<span class="n">subsets</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;train&quot;</span><span class="p">,</span> <span class="s2">&quot;test&quot;</span><span class="p">]</span>
+
+
+<div class="viewcode-block" id="load"><a class="viewcode-back" href="../../api.html#tgibm.database.load">[docs]</a><span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
+    
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Load the desired data from the Data folder</span>
+
+<span class="sd">    Parameters: </span>
+<span class="sd">    </span>
+<span class="sd">        i : int</span>
+<span class="sd">            The index of data_base list to know which data to load.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        numpy.ndarray,</span>
+<span class="sd">            A 3D numpy ndarray where the columns are the features of the data and the last column is the</span>
+<span class="sd">            value that we would like to predict.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">Data_filename</span><span class="o">=</span><span class="n">pkg_resources</span><span class="o">.</span><span class="n">resource_filename</span><span class="p">(</span><span class="vm">__name__</span><span class="p">,</span><span class="s2">&quot;/data/housing.data&quot;</span><span class="p">)</span>
+
+
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">Data_filename</span><span class="p">)</span>
+
+    
+    <span class="c1"># the files don&#39;t have the same extension so we seperate in two cases</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">Data_filename</span><span class="o">=</span><span class="n">pkg_resources</span><span class="o">.</span><span class="n">resource_filename</span><span class="p">(</span><span class="vm">__name__</span><span class="p">,</span><span class="s2">&quot;/data/&quot;</span><span class="o">+</span><span class="n">data_base</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">Data_filename</span><span class="p">,</span> <span class="s2">&quot;rt&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">reader</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">reader</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s2">&quot;;&quot;</span><span class="p">)</span>
+            <span class="n">data_</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="nb">next</span><span class="p">(</span><span class="n">reader</span><span class="p">)</span>
+            <span class="n">i</span><span class="o">=</span><span class="mi">0</span>
+            <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">reader</span><span class="p">:</span>
+                <span class="n">i</span><span class="o">+=</span><span class="mi">1</span>
+                <span class="n">data_</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="nb">float</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">row</span><span class="p">]))</span>
+    <span class="n">X</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">data_</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">X</span></div>
+
+<span class="n">load</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="split_data"><a class="viewcode-back" href="../../api.html#tgibm.database.split_data">[docs]</a><span class="k">def</span> <span class="nf">split_data</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Split the data into 3 different test and train sets with the use of train_test_split</span>
+<span class="sd">    function from sklearn</span>
+
+<span class="sd">    Parameters: </span>
+<span class="sd">    </span>
+<span class="sd">        i : int</span>
+<span class="sd">            The index of data_base list to know which data to load.</span>
+
+<span class="sd">    Returns: </span>
+<span class="sd">        dict(k,dict(subset np.array)),</span>
+<span class="sd">                A dictionnary where the keys k represent the protocol used to split the data</span>
+<span class="sd">                and subset is either &quot;train&quot; or &quot;test&quot;.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">loaded_data</span> <span class="o">=</span> <span class="n">load</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+    <span class="n">X</span> <span class="o">=</span> <span class="n">loaded_data</span><span class="p">[:,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">Y</span> <span class="o">=</span> <span class="n">loaded_data</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">([(</span><span class="n">k</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;train&quot;</span><span class="p">:</span> <span class="p">[],</span> <span class="s2">&quot;test&quot;</span><span class="p">:</span> <span class="p">[]})</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">seeds</span><span class="p">])</span>
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">seeds</span><span class="p">:</span>
+        <span class="n">x_train</span><span class="p">,</span> <span class="n">x_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">model_selection</span><span class="o">.</span><span class="n">train_test_split</span><span class="p">(</span>
+            <span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">k</span>
+        <span class="p">)</span>
+        <span class="n">train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span> <span class="p">(</span><span class="n">x_train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">)),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x_test</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="p">(</span><span class="n">x_test</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">)),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">data</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="s2">&quot;train&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">train</span>
+        <span class="n">data</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="s2">&quot;test&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">test</span>
+    <span class="k">return</span> <span class="n">data</span></div>
+
+<div class="viewcode-block" id="extract"><a class="viewcode-back" href="../../api.html#tgibm.database.extract">[docs]</a><span class="k">def</span> <span class="nf">extract</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">protocol</span><span class="p">,</span> <span class="n">subset</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    extract the protocol of interest</span>
+
+<span class="sd">    Parameters:</span>
+
+<span class="sd">        i : int</span>
+<span class="sd">            The index of data_base list to know which data to load.</span>
+
+<span class="sd">        protocol : int</span>
+<span class="sd">            The index of seeds list to know which protocol to use to split the data.</span>
+
+<span class="sd">        subset : int</span>
+<span class="sd">            The index of subsets list to know if we extract train set or test set.</span>
+
+<span class="sd">    Returns:</span>
+
+<span class="sd">        np.ndarray,</span>
+<span class="sd">            A 3D array of the desired dataset, split protocol and subset.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">values</span> <span class="o">=</span> <span class="n">split_data</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+    <span class="n">interest</span> <span class="o">=</span> <span class="n">values</span><span class="p">[</span><span class="n">seeds</span><span class="p">[</span><span class="n">protocol</span><span class="p">]]</span>
+    <span class="n">X</span> <span class="o">=</span> <span class="n">interest</span><span class="p">[</span><span class="n">subsets</span><span class="p">[</span><span class="n">subset</span><span class="p">]]</span>
+    <span class="k">return</span> <span class="n">X</span></div>
+</pre></div>
+
+	    </div>
+            <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2022, Imen Ben Mahmoud and Theodora glamocanin.
+    </p>
+  </div>
+
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/jucacrispim/sphinx_pdj_theme">theme</a> provided by <a href="http://poraodojuca.net">Porão do Juca</a>.
+
+</footer>
+	</div>
+	</div>
+	  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+    <script type="text/javascript" src="../../_static/documentation_options.js">
+
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js">
+
+    </script>
+    <script type="text/javascript" src="../../_static/underscore.js">
+
+    </script>
+    <script type="text/javascript" src="../../_static/doctools.js">
+
+    </script>
+
+  
+
+   <script type="text/javascript"
+           src="../../_static/js/theme.js"></script>
+
+   <script type="text/javascript"
+           src="../../_static/js/pdj.js"></script>
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+  </body>
+</html>

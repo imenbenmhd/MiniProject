@@ -1,0 +1,346 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xml:lang="" lang="" version="-//W3C//DTD XHTML 1.1//EN" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+  <title>User Guide &mdash; MiniProject  documentation</title>
+  
+
+  
+
+  
+
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'/>
+    <link rel="stylesheet" href="_static/css/pdj.css" type="text/css" />
+
+  
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  
+    <link rel="stylesheet" href="_static/css/pdj.css" type="text/css" />
+  
+    <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="MiniProject  documentation" href="index.html"/>
+        <link rel="next" title="Python API" href="api.html"/>
+        <link rel="prev" title="How to install" href="install.html"/>
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="cache-control" content="public" />
+    <meta name="robots" content="follow, all" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Add jQuery library -->
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+  </head>
+
+  <body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="index.html" class="fa fa-home"> MiniProject </a>
+        <div role="search">
+	  <form id ="rtd-search-form" class="wy-form"
+		action="search.html" method="get">
+	    <input type="text" name="q" placeholder="Search docs" />
+	    <input type="hidden" name="check_keywords" value="yes" />
+	    <input type="hidden" name="area" value="default" />
+	  </form>
+	</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="install.html">How to install</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">User Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#example-of-a-pipeline">Example of a pipeline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#results-for-dataset-1-winequality-white-csv">Results for Dataset 1 <cite>winequality-white.csv</cite></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">Python API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api.html#module-tgibm.database">Database</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#module-tgibm.algorithm">The ML algorithms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#module-tgibm.preprocessor">The Preproccessing methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#module-tgibm.analysis">Analysis part</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="unittesting.html">Unit tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+</ul>
+
+          
+        
+
+      </div>
+      &nbsp;
+    </nav>
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      <nav class="wy-nav-top" id="barra-mobile" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="#">Porão do Juca</a>
+      </nav>
+
+      <div class="wy-nav-content">
+	<div class="fundo-claro">
+	</div>
+	<div class="fundo-escuro">
+	</div>
+
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+	    
+	    <!-- <ul class="wy-breadcrumbs"> -->
+	    <!--   <li><a href="#">Docs</a> &raquo;</li> -->
+
+	    <!--   <li>Features</li> -->
+	    <!--   <li class="wy-breadcrumbs-aside"> -->
+
+	    <!-- 	<a href="_sources/index.txt" rel="nofollow"> View page source</a> -->
+
+	    <!--   </li> -->
+	    <!-- </ul> -->
+	    <!-- <hr/> -->
+	  </div>
+
+          <div role="main" class="">
+
+	    <div id="content" class="hfeed entry-container hentry">
+  <section id="user-guide">
+<span id="activities-userguide"></span><h1>User Guide<a class="headerlink" href="#user-guide" title="Permalink to this headline">¶</a></h1>
+<p>This guide explains how to use this package and obtain results published in our
+paper.  Results can be re-generated automatically by executing the following
+command:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">(</span>project<span class="o">)</span> $ tgibm-result
+</pre></div>
+</div>
+<p>For your reference, the tables and plots are repeated below, so you can check the
+reproducibility of our solution.  You may also limit the output of the program
+using command-line options.  You will find more information adding the
+<code class="docutils literal notranslate"><span class="pre">--help</span></code> flag on the command above:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">(</span>project<span class="o">)</span> $ tgibm-result --help
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span> <span class="n">options</span><span class="p">:</span>
+<span class="o">-</span><span class="n">h</span><span class="p">,</span> <span class="o">--</span><span class="n">help</span>            <span class="n">show</span> <span class="n">this</span> <span class="n">help</span> <span class="n">message</span> <span class="ow">and</span> <span class="n">exit</span>
+<span class="o">-</span><span class="n">n</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">},</span> <span class="o">--</span><span class="n">norm</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">}</span>
+                      <span class="n">Chooses</span> <span class="n">which</span> <span class="n">normalization</span> <span class="n">to</span> <span class="n">apply</span> <span class="p">(</span><span class="n">optional</span><span class="p">)</span><span class="o">.</span> <span class="n">If</span> <span class="n">you</span> <span class="n">choose</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span>
+                      <span class="n">then</span> <span class="n">you</span> <span class="n">would</span> <span class="n">apply</span> <span class="n">the</span> <span class="n">minmax</span> <span class="n">scaler</span><span class="o">.</span> <span class="n">If</span> <span class="n">you</span> <span class="n">choose</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="n">then</span> <span class="n">you</span>
+                      <span class="n">would</span> <span class="n">apply</span> <span class="n">the</span> <span class="n">z</span><span class="o">-</span><span class="n">normalization</span><span class="o">.</span> <span class="n">If</span> <span class="n">you</span> <span class="n">choose</span> <span class="s1">&#39;2&#39;</span><span class="p">,</span> <span class="n">you</span> <span class="n">would</span> <span class="n">apply</span>
+                      <span class="n">the</span> <span class="n">polynomial</span> <span class="n">features</span> <span class="n">scaler</span> <span class="n">first</span><span class="p">,</span> <span class="ow">and</span> <span class="n">then</span> <span class="n">the</span> <span class="n">minmax</span> <span class="n">scaler</span><span class="o">.</span> <span class="n">If</span>
+                      <span class="n">you</span> <span class="n">choose</span> <span class="s1">&#39;4&#39;</span><span class="p">,</span> <span class="n">then</span> <span class="n">you</span> <span class="n">would</span> <span class="n">apply</span> <span class="n">the</span> <span class="n">polynomial</span> <span class="n">features</span> <span class="n">scaler</span>
+                      <span class="n">first</span><span class="p">,</span> <span class="ow">and</span> <span class="n">then</span> <span class="n">the</span> <span class="n">z</span><span class="o">-</span><span class="n">normalization</span> <span class="n">scaler</span><span class="o">.</span> <span class="n">By</span> <span class="n">default</span><span class="p">,</span> <span class="k">if</span> <span class="n">no</span> <span class="n">specific</span>
+                      <span class="n">case</span> <span class="ow">is</span> <span class="n">select</span><span class="p">,</span> <span class="n">prints</span> <span class="nb">all</span> <span class="n">results</span><span class="o">.</span>
+<span class="o">-</span><span class="n">d</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">},</span> <span class="o">--</span><span class="n">dataset</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">}</span>
+                      <span class="n">Decides</span> <span class="n">which</span> <span class="n">dataset</span> <span class="n">to</span> <span class="n">use</span> <span class="k">for</span> <span class="n">reporting</span> <span class="n">results</span><span class="o">.</span>
+                      <span class="n">Options</span> <span class="n">are</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span> <span class="p">(</span><span class="mi">0</span><span class="p">:</span> <span class="n">winequality</span><span class="o">-</span><span class="n">white</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="n">winequality</span><span class="o">-</span><span class="n">red</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="n">housing</span><span class="p">)</span>
+</pre></div>
+</div>
+<section id="example-of-a-pipeline">
+<h2>Example of a pipeline<a class="headerlink" href="#example-of-a-pipeline" title="Permalink to this headline">¶</a></h2>
+<p>Command-line arguments can help you select different parameters of the pipeline.</p>
+<p>For example, to run both models on the Wine quality (white wine) dataset
+with a given normalization method Z-normalization, you should run:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ tgibm-result -d<span class="o">=</span><span class="m">0</span> -n<span class="o">=</span><span class="m">1</span>
+</pre></div>
+</div>
+</section>
+<section id="results-for-dataset-1-winequality-white-csv">
+<h2>Results for Dataset 1 <cite>winequality-white.csv</cite><a class="headerlink" href="#results-for-dataset-1-winequality-white-csv" title="Permalink to this headline">¶</a></h2>
+<p>The samples are <strong>not</strong> randomized.  Results are present in
+terms of Mean Absolute Error.</p>
+<p>If you choose a normalization method, it outputs tables for each model,
+and prints out the plot comparing MAE levels for each random state of each model.</p>
+<section id="for-a-chosen-normalization-0-minmax-scaling">
+<h3>For a chosen normalization 0 (minmax scaling):<a class="headerlink" href="#for-a-chosen-normalization-0-minmax-scaling" title="Permalink to this headline">¶</a></h3>
+<p>MAE for Linear Regression.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 60%" />
+<col style="width: 40%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>random state</p></th>
+<th class="head"><p>MAE</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0</p></td>
+<td><p>8.3962e-16</p></td>
+</tr>
+<tr class="row-odd"><td><p>1</p></td>
+<td><p>2.05534e-16</p></td>
+</tr>
+<tr class="row-even"><td><p>2</p></td>
+<td><p>1.90706e-15</p></td>
+</tr>
+</tbody>
+</table>
+<p>MAE for Regression Trees.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 60%" />
+<col style="width: 40%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>random state</p></th>
+<th class="head"><p>MAE</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0</p></td>
+<td><p>1.14615e-15</p></td>
+</tr>
+<tr class="row-odd"><td><p>1</p></td>
+<td><p>0.0566081</p></td>
+</tr>
+<tr class="row-even"><td><p>2</p></td>
+<td><p>1.15857e-15</p></td>
+</tr>
+</tbody>
+</table>
+<p>The plot can be accessed <a class="reference external" href="https://github.com/imenbenmhd/MiniProject/tree/main/docs/img/minmax_00.png">here</a>.</p>
+</section>
+<section id="for-a-chosen-normalization-1-z-norm-scaling">
+<h3>For a chosen normalization 1 (z-norm scaling):<a class="headerlink" href="#for-a-chosen-normalization-1-z-norm-scaling" title="Permalink to this headline">¶</a></h3>
+<p>MAE for Linear Regression.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 60%" />
+<col style="width: 40%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>random state</p></th>
+<th class="head"><p>MAE</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0</p></td>
+<td><p>6.21605e-16</p></td>
+</tr>
+<tr class="row-odd"><td><p>1</p></td>
+<td><p>5.45699e-16</p></td>
+</tr>
+<tr class="row-even"><td><p>2</p></td>
+<td><p>9.45084e-16</p></td>
+</tr>
+</tbody>
+</table>
+<p>MAE for Regression Trees.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 60%" />
+<col style="width: 40%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>random state</p></th>
+<th class="head"><p>MAE</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0</p></td>
+<td><p>0.00315739</p></td>
+</tr>
+<tr class="row-odd"><td><p>1</p></td>
+<td><p>0.0603942</p></td>
+</tr>
+<tr class="row-even"><td><p>2</p></td>
+<td><p>0.0305857</p></td>
+</tr>
+</tbody>
+</table>
+<p>The plot can be accessed <a class="reference external" href="https://github.com/imenbenmhd/MiniProject/tree/main/docs/img/znorm_01.png">here</a>.</p>
+<p>If a normalization is not chosen (the parameter is optional), it outputs 4 sets of tables for each
+normalization method, and 4 plots, together with the plot comparing mean values of MAE for different
+normalization methods.</p>
+<p>Plot comparison can be accessed <a class="reference external" href="https://github.com/imenbenmhd/MiniProject/tree/main/docs/img/all_norms_0.png">here</a>.</p>
+</section>
+</section>
+</section>
+
+
+	    </div>
+            <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="api.html" class="btn btn-neutral float-right" title="Python API">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="install.html" class="btn btn-neutral" title="How to install"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2022, Imen Ben Mahmoud and Theodora glamocanin.
+    </p>
+  </div>
+
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/jucacrispim/sphinx_pdj_theme">theme</a> provided by <a href="http://poraodojuca.net">Porão do Juca</a>.
+
+</footer>
+	</div>
+	</div>
+	  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+    <script type="text/javascript" src="_static/documentation_options.js">
+
+    </script>
+    <script type="text/javascript" src="_static/jquery.js">
+
+    </script>
+    <script type="text/javascript" src="_static/underscore.js">
+
+    </script>
+    <script type="text/javascript" src="_static/doctools.js">
+
+    </script>
+
+  
+
+   <script type="text/javascript"
+           src="_static/js/theme.js"></script>
+
+   <script type="text/javascript"
+           src="_static/js/pdj.js"></script>
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+  </body>
+</html>
