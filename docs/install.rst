@@ -6,7 +6,7 @@ Use of pip to install:
 
 .. code-block:: sh
 
-    $ pip install --extra-index-url https://test.pypi.org/simple tgibm
+    $ pip install --extra-index-url https://test.pypi.org/simple tgibm==1.1.1
 
 
 
